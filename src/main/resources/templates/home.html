@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">Mi Sitio</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="layout/header :: navbar"></div>
+
+<div th:fragment="content">
+    <p>Aquí irá el contenido de otras plantillas</p>
+
+</div>
+
+<!-- Footer -->
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
