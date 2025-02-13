@@ -9,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name="plataformas")
+@Table(name="generos")
 public class Genero implements Serializable{
     private static final long serialVersionUID = 1L;
 

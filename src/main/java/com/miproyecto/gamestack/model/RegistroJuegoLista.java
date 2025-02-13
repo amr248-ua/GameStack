@@ -26,7 +26,7 @@ public class RegistroJuegoLista implements Serializable{
     @Column(name = "fecha_inicio")
     @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-    @Column(name = "fecha_inicio")
+    @Column(name = "fecha_fin")
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
 

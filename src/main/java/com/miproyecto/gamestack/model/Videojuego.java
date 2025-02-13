@@ -35,7 +35,7 @@ public class Videojuego implements Serializable {
     @ManyToMany(mappedBy="videojuegos")
     Set<Plataforma> plataformas = new HashSet<>();
 
-    @ManyToMany(mappedBy = "generos")
+    @ManyToMany(mappedBy = "videojuegos")
     Set<Genero> generos = new HashSet<>();
 
     @OneToMany(mappedBy = "videojuego")
@@ -44,7 +44,7 @@ public class Videojuego implements Serializable {
     @OneToMany(mappedBy = "videojuego")
     Set<RegistroJuegoLista> registroJuegoLista = new HashSet<>();
 
-    @ManyToMany(mappedBy = "videojuegos")
+    @ManyToMany(mappedBy = "recomendaciones")
     Set<Usuario> usuarioRecomendacion = new HashSet<>();
 
     public Videojuego() {
