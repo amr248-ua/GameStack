@@ -35,6 +35,18 @@ public class Videojuego implements Serializable {
     @ManyToMany(mappedBy="videojuegos")
     Set<Plataforma> plataformas = new HashSet<>();
 
+    @ManyToMany(mappedBy = "generos")
+    Set<Genero> generos = new HashSet<>();
+
+    @OneToMany(mappedBy = "videojuego")
+    Set<Reseña> reseñas = new HashSet<>();
+
+    @OneToMany(mappedBy = "videojuego")
+    Set<RegistroJuegoLista> registroJuegoLista = new HashSet<>();
+
+    @ManyToMany(mappedBy = "videojuegos")
+    Set<Usuario> usuarioRecomendacion = new HashSet<>();
+
     public Videojuego() {
 
     }
@@ -105,6 +117,100 @@ public class Videojuego implements Serializable {
 
     public Set<Plataforma> getPlataformas() {
         return plataformas;
+    }
+
+    public Set<Genero> getGeneros(){
+        return generos;
+    }
+
+    public void addPlataforma(Plataforma plataforma) {
+        // Hay que actualiar ambas colecciones, porque
+        // JPA/Hibernate no lo hace automáticamente
+        this.getPlataformas().add(plataforma);
+        plataforma.getVideojuegos().add(this);
+    }
+
+    public void addGenero(Genero genero){
+        this.getGeneros().add(genero);
+        genero.getVideojuegos().add(this);
+    }
+
+    public Set<Reseña> getReseñas() {
+        return reseñas;
+    }
+
+    public void addReseña(Reseña reseña) {
+        this.getReseñas().add(reseña);
+        reseña.setVideojuego(this);
+    }
+
+    public float getPuntuacionPromedio() {
+        return puntuacionPromedio;
+    }
+
+    public void setPuntuacionPromedio(float puntuacionPromedio) {
+        this.puntuacionPromedio = puntuacionPromedio;
+    }
+
+    public Date getFechaLanzamiento() {
+        return fechaLanzamiento;
+    }
+
+    public void setFechaLanzamiento(Date fechaLanzamiento) {
+        this.fechaLanzamiento = fechaLanzamiento;
+    }
+
+    public void setPlataformas(Set<Plataforma> plataformas) {
+        this.plataformas = plataformas;
+    }
+
+    public void setGeneros(Set<Genero> generos) {
+        this.generos = generos;
+    }
+
+    public void setReseñas(Set<Reseña> reseñas) {
+        this.reseñas = reseñas;
+    }
+
+    public void setPuntuacionPromedio(int puntuacionPromedio) {
+        this.puntuacionPromedio = puntuacionPromedio;
+    }
+
+    public Set<RegistroJuegoLista> getRegistroJuegoLista() {
+        return registroJuegoLista;
+    }
+
+    public void addRegistroJuegoLista(RegistroJuegoLista registroJuegoLista) {
+        this.getRegistroJuegoLista().add(registroJuegoLista);
+        registroJuegoLista.setVideojuego(this);
+    }
+
+    public Set<Usuario> getUsuarioRecomendacion() {
+        return usuarioRecomendacion;
+    }
+
+    public void addUsuarioRecomendacion(Usuario usuario) {
+        this.getUsuarioRecomendacion().add(usuario);
+        usuario.getRecomendaciones().add(this);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Videojuego videojuego = (Videojuego) o;
+        if (id != null && videojuego.id != null)
+            // Si tenemos los ID, comparamos por ID
+            return Objects.equals(id, videojuego.id);
+        // si no comparamos por campos obligatorios
+        return titulo.equals(videojuego.titulo);
+    }
+
+    @Override
+    public int hashCode() {
+        // Generamos un hash basado en los campos obligatorios
+        return Objects.hash(titulo);
     }
 
 
