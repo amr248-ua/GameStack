@@ -1,5 +1,52 @@
 <div th:fragment="footer">
-    <footer class="bg-dark text-white text-center py-3">
-        <p>© 2024 Mi Sitio Web. Todos los derechos reservados.</p>
+    <footer class="bg-dark text-white py-3">
+
+        <div class="d-flex mb-3">
+            <div class="me-auto p-2">
+                <p><strong>Mantén un registro de los juegos que has completado.</strong><br>
+                    Descubre recomendaciones y más uniéndote a nuestra comunidad.</p>
+            </div>
+            <div class="p-3">
+                <form class="d-flex" role="form">
+                    <input class="btn btn-outline-success me-2" type="submit" value="Iniciar sesión" th:href="@{/login}">
+                    <input class="btn btn-outline-success" type="submit" value="Registrarse" th:href="@{/register}">
+                </form>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="container text-center p-2">
+            <div class="row">
+                <div class="col">
+                    <a href="#">Iniciar sesión</a>
+                </div>
+                <div class="col">
+                    <a href="#">Registrarse</a>
+                </div>
+                <div class="col">
+                    <a href="#">Juegos</a>
+                </div>
+                <div class="col">
+                    <a href="#">Top juegos</a>
+                </div>
+                <div class="col">
+                    <a href="#">Recomendaciones</a>
+                </div>
+                <div class="col">
+                    <a href="#">Foro</a>
+                </div>
+                <div class="col">
+                    <a href="#">Mi perfil</a>
+                </div>
+                <div class="col">
+                    <a href="#">Sobre nosotros</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <p class="text-center">© 2024 GameStack. Todos los derechos reservados.</p>
     </footer>
 </div>

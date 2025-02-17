@@ -7,15 +7,23 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/bootstrap-icons/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/css/custom.css}">
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 <!-- Navbar -->
 <div th:replace="layout/header :: navbar"></div>
 
-<div th:fragment="content">
-    <p>Aquí irá el contenido de otras plantillas</p>
+<div th:fragment="content" class="flex-grow-1">
+    <div class="d-flex align-items-center justify-content-center text-white text-center"
+         style="background: url('https://i.blogs.es/4d650a/gogga/1366_521.jpeg') center/cover; height: 400px; width: 100%;">
+        <h2>Unete ahora y registra todos tus juegos, no olvides lo que has jugado y descubre tu próxima aventura.
+
+            UNETE A NUESTRA COMUNIDAD DE JUGADORES</h2>
+    </div>
+
 
 </div>
 
