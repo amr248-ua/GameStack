@@ -11,17 +11,92 @@
     <link rel="stylesheet" th:href="@{/css/custom.css}">
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-dark">
 
 <!-- Navbar -->
 <div th:replace="layout/header :: navbar"></div>
 
 <div th:fragment="content" class="flex-grow-1">
-    <div class="d-flex align-items-center justify-content-center text-white text-center"
-         style="background: url('https://i.blogs.es/4d650a/gogga/1366_521.jpeg') center/cover; height: 400px; width: 100%;">
-        <h2>Unete ahora y registra todos tus juegos, no olvides lo que has jugado y descubre tu próxima aventura.
+    <div class="position-relative text-white text-center d-flex align-items-center justify-content-center"
+         style="height: 400px; width: 100%;">
 
-            UNETE A NUESTRA COMUNIDAD DE JUGADORES</h2>
+        <div class="position-absolute top-0 start-0 w-100 h-100"
+             style="background: url('https://i.blogs.es/4d650a/gogga/1366_521.jpeg') center/cover; opacity: 0.50;">
+        </div>
+
+        <h2 class="position-relative text-white">
+            Únete ahora y registra todos tus juegos, no olvides lo que has jugado y descubre tu próxima aventura.
+            <br>
+            <span class="text-uppercase">Únete a nuestra comunidad de jugadores</span>
+        </h2>
+
+    </div>
+
+    <div class="d-flex flex-column custom-bg">
+        <div class="container text-center mt-2 mb-2">
+            <h2>Juegos populares</h2>
+        </div>
+
+        <div class="container mt-5 mb-5 justify-content-center ">
+            <div id="movieCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <div class="d-flex">
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/38019_The_Legend_of_Zelda_Breath_of_the_Wild.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/9705_Terraria.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/148973_Kingdom_Come_Deliverance_II.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/68151_Elden_Ring.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/10270_The_Witcher_3_Wild_Hunt.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <div class="d-flex">
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/132112_Balatro.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/Batman_Arkham_Asylum_GOTY.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/83145_Hogwarts_Legacy.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/79769_Marvels_Spider-Man_2.png?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                            <div class="card m-auto bg-dark text-white" style="width: 10rem;">
+                                <img src="https://howlongtobeat.com/games/doom_2016.jpg?width=250" class="card-img-top" alt="Movie">
+                                <div class="card-body"><button class="btn btn-outline-success" type="submit">Añadir a la lista</button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#movieCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#movieCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
     </div>
 
 

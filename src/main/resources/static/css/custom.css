@@ -6,3 +6,11 @@
     background-color: #957AA6 !important;
     border-color: #957AA6 !important;
 }
+
+.custom-bg {
+     /* Ajusta la altura según necesites */
+    background-color: #333030; /* Color diferente */
+    width: 80%; /* No ocupa toda la pantalla */
+    margin: 20px auto; /* Centrado */
+    border-radius: 20px; /* Bordes redondeados */
+}
