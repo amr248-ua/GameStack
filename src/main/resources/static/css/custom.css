@@ -14,3 +14,11 @@
     margin: 20px auto; /* Centrado */
     border-radius: 20px; /* Bordes redondeados */
 }
+
+.bg-dark{
+    background-color: #333030 !important; /* Color diferente */
+}
+
+.bg-black{
+    background-color: #212121 !important; /* Color diferente */
+}
