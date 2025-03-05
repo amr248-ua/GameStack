@@ -27,7 +27,7 @@ public class Plataforma implements Serializable {
 
     public Plataforma() {}
 
-    public Plataforma(@NotNull String plataforma) {
+    public Plataforma(String plataforma) {
         this.plataforma = plataforma;
     }
 

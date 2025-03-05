@@ -15,6 +15,7 @@ import java.util.Set;
 @Table(name="videojuegos")
 public class Videojuego implements Serializable {
     private static final long serialVersionUID = 1L;
+    float puntuacionPromedio;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,6 @@ public class Videojuego implements Serializable {
     private String distribuidor;
     private String director;
     private String productor;
-    float puntuacionPromedio;
     @Column(name = "fecha_lanzamiento")
     @Temporal(TemporalType.DATE)
     private Date fechaLanzamiento;
@@ -49,6 +49,17 @@ public class Videojuego implements Serializable {
 
     public Videojuego() {
 
+    }
+
+    public Videojuego(String titulo, String imagen, Date fechaLanzamiento) {
+        this.titulo = titulo;
+        this.sinopsis = "sinopsis";
+        this.imagen = imagen;
+        this.desarrollador = "desarrollador";
+        this.distribuidor = "distribuidor";
+        this.director = "director";
+        this.productor = "productor";
+        this.fechaLanzamiento = fechaLanzamiento;
     }
 
     public Long getId() {
