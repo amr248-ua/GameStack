@@ -7,11 +7,14 @@ import java.util.List;
 
 @Data
 public class RawgGame {
+    private int id;
     private String name;
     private List<RawgGenre> genres;
     private List<RawgPlatform> platforms;
     private String released;
-    private String backgroundImage;
+    private String background_image;
+    private List<RawgTag> tags;
+
 
     public Date getReleased() {
         return new Date();

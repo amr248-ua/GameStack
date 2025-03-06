@@ -1,14 +1,13 @@
 package com.miproyecto.gamestack.service;
 
-import com.miproyecto.gamestack.dto.RawgGame;
-import com.miproyecto.gamestack.dto.RawgGenre;
-import com.miproyecto.gamestack.dto.RawgPlatform;
-import com.miproyecto.gamestack.dto.RawgResponse;
+import com.miproyecto.gamestack.dto.*;
 import com.miproyecto.gamestack.model.Genero;
 import com.miproyecto.gamestack.model.Plataforma;
 import com.miproyecto.gamestack.model.Videojuego;
+import com.miproyecto.gamestack.model.Tag;
 import com.miproyecto.gamestack.repository.GeneroRepository;
 import com.miproyecto.gamestack.repository.PlataformaRepository;
+import com.miproyecto.gamestack.repository.TagRepository;
 import com.miproyecto.gamestack.repository.VideojuegoRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +20,20 @@ import java.util.List;
 public class RawgService {
 
     private final WebClient webClient;
+    private final String API_KEY = "b63bc77ea7424d118a60bcc10f2b6ba6";
+
     @Autowired
     private VideojuegoRepository videojuegoRepository;
     @Autowired
     private GeneroRepository generoRepository;
     @Autowired
     private PlataformaRepository plataformaRepository;
-    private final String API_KEY = "b63bc77ea7424d118a60bcc10f2b6ba6"; // Reemplaza con tu clave de RAWG
+    @Autowired
+    private TagRepository tagRepository;
 
-    public RawgService(VideojuegoRepository videojuegoRepository) {
+
+    public RawgService() {
         this.webClient = WebClient.create("https://api.rawg.io/api");
-        this.videojuegoRepository = videojuegoRepository;
     }
 
 
@@ -74,6 +76,55 @@ public class RawgService {
         }
     }
 
+    private void cargarTagsJuego(RawgGame game, Videojuego videojuego){
+        for(RawgTag tag : game.getTags()) {
+            Tag newTag = tagRepository.findByTag(tag.getName());
+
+            if (newTag != null) {
+                newTag.addVideojuegos(videojuego);
+                tagRepository.save(newTag);
+                videojuego.addTag(newTag);
+            } else {
+                Tag tagNuevo = new Tag(tag.getName());
+                tagNuevo.addVideojuegos(videojuego);
+                tagRepository.save(tagNuevo);
+                videojuego.addTag(tagNuevo);
+            }
+
+        }
+    }
+
+    private void cargarDevelopersJuego(RawgGameDetails game, Videojuego videojuego){
+        for(RawgDeveloper developer : game.getDevelopers()){
+            videojuego.addDeveloper(developer.getName());
+        }
+    }
+
+    private void cargarPublishersJuego(RawgGameDetails game, Videojuego videojuego){
+        for(RawgPublisher publisher : game.getPublishers()){
+            videojuego.addPublisher(publisher.getName());
+        }
+    }
+
+    private String descripcionEnEspanol(String cadena) {
+        // Buscar la parte en español
+        String inicio = "<p>Español<br />";
+        int inicioIndex = cadena.indexOf(inicio);
+        String resultado = "";
+
+        if (inicioIndex != -1) {
+            // Extraer solo la parte en español
+            resultado = cadena.substring(inicioIndex + inicio.length());
+
+            // Eliminar etiquetas HTML
+            resultado = resultado.replaceAll("<br />", "\n")
+                    .replaceAll("</?p>", "")
+                    .trim();
+
+        }
+        return resultado;
+    }
+
     public void cargarJuegosDesdeRAWG() {
         String url = "/games?key=" + API_KEY; //+ "&page_size=40";
         int maxPaginas = 3; // Limite de páginas para evitar demasiadas peticiones
@@ -90,17 +141,33 @@ public class RawgService {
                 List<RawgGame> juegos = response.getResults();
 
                 for (RawgGame game : juegos) {
-                    Videojuego videojuego = new Videojuego(
-                            game.getName(),
-                            game.getBackgroundImage(),
-                            game.getReleased()
+                    RawgGameDetails gameDetails = webClient.get()
+                            .uri("/games/" + game.getId() + "?key=" + API_KEY)
+                            .retrieve()
+                            .bodyToMono(RawgGameDetails.class)
+                            .block();
 
-                    );
+                    if (gameDetails != null) {
 
-                    videojuegoRepository.save(videojuego);
-                    cargarPlataformasJuego(game,videojuego);
-                    cargarGenerosJuego(game,videojuego);
-                    videojuegoRepository.save(videojuego);
+                        Videojuego videojuego = new Videojuego(
+                                game.getName(),
+                                descripcionEnEspanol(gameDetails.getDescription()),
+                                game.getBackground_image(),
+                                game.getReleased()
+
+                        );
+
+                        videojuegoRepository.save(videojuego);
+                        cargarPlataformasJuego(game,videojuego);
+                        cargarGenerosJuego(game,videojuego);
+                        cargarTagsJuego(game,videojuego);
+                        cargarDevelopersJuego(gameDetails,videojuego);
+                        cargarPublishersJuego(gameDetails,videojuego);
+                        videojuegoRepository.save(videojuego);
+
+                    }
+
+
                 }
                 url = response.getNext();
             }

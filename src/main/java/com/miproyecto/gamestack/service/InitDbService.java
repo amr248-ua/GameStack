@@ -32,30 +32,5 @@ public class InitDbService {
         System.out.println("Cargando datos desde la API RAWG...");
         rawgService.cargarJuegosDesdeRAWG();
         System.out.println("Datos cargados correctamente en la base de datos H2.");
-        /**
-         *Genero genero = new Genero("Aventura");
-         *         generoRepository.save(genero);
-         *
-         *         Plataforma plataforma = new Plataforma("Nintendo Switch");
-         *         plataformaRepository.save(plataforma);
-         *
-         *         Videojuego videojuego = new Videojuego("Zelda", "zelda.jpg", new Date());
-         *         videojuego.addGenero(genero);
-         *         videojuego.addPlataforma(plataforma);
-         *         videojuegoRepository.save(videojuego);
-         *
-         *         genero.addVideojuegos(videojuego);
-         *         generoRepository.save(genero);
-         *
-         *         plataforma.addVideojuego(videojuego);
-         *         plataformaRepository.save(plataforma);
-         *
-         */
-
-
-
-
-
-
     }
 }

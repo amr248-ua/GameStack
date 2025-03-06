@@ -22,12 +22,9 @@ public class Videojuego implements Serializable {
     private Long id;
     @NotNull
     private String titulo;
+    @Column(length = 2000)
     private String sinopsis;
     private String imagen;
-    private String desarrollador;
-    private String distribuidor;
-    private String director;
-    private String productor;
     @Column(name = "fecha_lanzamiento")
     @Temporal(TemporalType.DATE)
     private Date fechaLanzamiento;
@@ -47,18 +44,27 @@ public class Videojuego implements Serializable {
     @ManyToMany(mappedBy = "recomendaciones")
     Set<Usuario> usuarioRecomendacion = new HashSet<>();
 
+    @ManyToMany(mappedBy = "videojuegos")
+    Set<Tag> tags = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "videojuego_publishers", joinColumns = @JoinColumn(name = "videojuego_id"))
+    @Column(name = "publisher")
+    private Set<String> publishers = new HashSet<>();
+
+    @ElementCollection
+    @CollectionTable(name = "videojuego_developers", joinColumns = @JoinColumn(name = "videojuego_id"))
+    @Column(name = "developer")
+    private Set<String> developers = new HashSet<>();
+
     public Videojuego() {
 
     }
 
-    public Videojuego(String titulo, String imagen, Date fechaLanzamiento) {
+    public Videojuego(String titulo,String sinopsis, String imagen, Date fechaLanzamiento) {
         this.titulo = titulo;
-        this.sinopsis = "sinopsis";
+        this.sinopsis = sinopsis;
         this.imagen = imagen;
-        this.desarrollador = "desarrollador";
-        this.distribuidor = "distribuidor";
-        this.director = "director";
-        this.productor = "productor";
         this.fechaLanzamiento = fechaLanzamiento;
     }
 
@@ -92,38 +98,6 @@ public class Videojuego implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
-    }
-
-    public String getDesarrollador() {
-        return desarrollador;
-    }
-
-    public void setDesarrollador(String desarrollador) {
-        this.desarrollador = desarrollador;
-    }
-
-    public String getDistribuidor() {
-        return distribuidor;
-    }
-
-    public void setDistribuidor(String distribuidor) {
-        this.distribuidor = distribuidor;
-    }
-
-    public String getDirector() {
-        return director;
-    }
-
-    public void setDirector(String director) {
-        this.director = director;
-    }
-
-    public String getProductor() {
-        return productor;
-    }
-
-    public void setProductor(String productor) {
-        this.productor = productor;
     }
 
     public Set<Plataforma> getPlataformas() {
@@ -203,6 +177,39 @@ public class Videojuego implements Serializable {
     public void addUsuarioRecomendacion(Usuario usuario) {
         this.getUsuarioRecomendacion().add(usuario);
         usuario.getRecomendaciones().add(this);
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.getTags().add(tag);
+        tag.getVideojuegos().add(this);
+    }
+
+    public Set<String> getPublishers() {
+        return publishers;
+    }
+
+    public void setPublishers(Set<String> publishers) {
+        this.publishers = publishers;
+    }
+
+    public Set<String> getDevelopers() {
+        return developers;
+    }
+
+    public void setDevelopers(Set<String> developers) {
+        this.developers = developers;
+    }
+
+    public void addPublisher(String publisher) {
+        this.getPublishers().add(publisher);
+    }
+
+    public void addDeveloper(String developer) {
+        this.getDevelopers().add(developer);
     }
 
 
