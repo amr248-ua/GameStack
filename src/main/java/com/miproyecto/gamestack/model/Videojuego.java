@@ -4,8 +4,11 @@ package com.miproyecto.gamestack.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -13,6 +16,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="videojuegos")
+@Getter
+@Setter
 public class Videojuego implements Serializable {
     private static final long serialVersionUID = 1L;
     float puntuacionPromedio;
@@ -20,14 +25,15 @@ public class Videojuego implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String titulo;
-    @Column(length = 2000)
+    @Column(length = 2500)
     private String sinopsis;
     private String imagen;
     @Column(name = "fecha_lanzamiento")
     @Temporal(TemporalType.DATE)
-    private Date fechaLanzamiento;
+    private LocalDate fechaLanzamiento;
 
     @ManyToMany(mappedBy="videojuegos")
     Set<Plataforma> plataformas = new HashSet<>();
@@ -61,51 +67,11 @@ public class Videojuego implements Serializable {
 
     }
 
-    public Videojuego(String titulo,String sinopsis, String imagen, Date fechaLanzamiento) {
+    public Videojuego(String titulo,String sinopsis, String imagen, LocalDate fechaLanzamiento) {
         this.titulo = titulo;
         this.sinopsis = sinopsis;
         this.imagen = imagen;
         this.fechaLanzamiento = fechaLanzamiento;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getSinopsis() {
-        return sinopsis;
-    }
-
-    public void setSinopsis(String sinopsis) {
-        this.sinopsis = sinopsis;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public Set<Plataforma> getPlataformas() {
-        return plataformas;
-    }
-
-    public Set<Genero> getGeneros(){
-        return generos;
     }
 
     public void addPlataforma(Plataforma plataforma) {
@@ -120,49 +86,9 @@ public class Videojuego implements Serializable {
         genero.getVideojuegos().add(this);
     }
 
-    public Set<Reseña> getReseñas() {
-        return reseñas;
-    }
-
     public void addReseña(Reseña reseña) {
         this.getReseñas().add(reseña);
         reseña.setVideojuego(this);
-    }
-
-    public float getPuntuacionPromedio() {
-        return puntuacionPromedio;
-    }
-
-    public void setPuntuacionPromedio(float puntuacionPromedio) {
-        this.puntuacionPromedio = puntuacionPromedio;
-    }
-
-    public Date getFechaLanzamiento() {
-        return fechaLanzamiento;
-    }
-
-    public void setFechaLanzamiento(Date fechaLanzamiento) {
-        this.fechaLanzamiento = fechaLanzamiento;
-    }
-
-    public void setPlataformas(Set<Plataforma> plataformas) {
-        this.plataformas = plataformas;
-    }
-
-    public void setGeneros(Set<Genero> generos) {
-        this.generos = generos;
-    }
-
-    public void setReseñas(Set<Reseña> reseñas) {
-        this.reseñas = reseñas;
-    }
-
-    public void setPuntuacionPromedio(int puntuacionPromedio) {
-        this.puntuacionPromedio = puntuacionPromedio;
-    }
-
-    public Set<RegistroJuegoLista> getRegistroJuegoLista() {
-        return registroJuegoLista;
     }
 
     public void addRegistroJuegoLista(RegistroJuegoLista registroJuegoLista) {
@@ -170,38 +96,14 @@ public class Videojuego implements Serializable {
         registroJuegoLista.setVideojuego(this);
     }
 
-    public Set<Usuario> getUsuarioRecomendacion() {
-        return usuarioRecomendacion;
-    }
-
     public void addUsuarioRecomendacion(Usuario usuario) {
         this.getUsuarioRecomendacion().add(usuario);
         usuario.getRecomendaciones().add(this);
     }
 
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
     public void addTag(Tag tag) {
         this.getTags().add(tag);
         tag.getVideojuegos().add(this);
-    }
-
-    public Set<String> getPublishers() {
-        return publishers;
-    }
-
-    public void setPublishers(Set<String> publishers) {
-        this.publishers = publishers;
-    }
-
-    public Set<String> getDevelopers() {
-        return developers;
-    }
-
-    public void setDevelopers(Set<String> developers) {
-        this.developers = developers;
     }
 
     public void addPublisher(String publisher) {
