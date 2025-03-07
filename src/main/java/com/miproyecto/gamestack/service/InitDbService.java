@@ -19,12 +19,6 @@ import java.util.Date;
 @Profile("dev")
 public class InitDbService {
     @Autowired
-    private VideojuegoRepository videojuegoRepository;
-    @Autowired
-    private GeneroRepository generoRepository;
-    @Autowired
-    private PlataformaRepository plataformaRepository;
-    @Autowired
     private RawgService rawgService;
 
     @PostConstruct

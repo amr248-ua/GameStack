@@ -2,6 +2,8 @@ package com.miproyecto.gamestack.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "comentarios")
+@Getter
+@Setter
 public class Comentario implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -51,81 +55,9 @@ public class Comentario implements Serializable {
         this.contenido = contenido;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public Integer getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Integer likes) {
-        this.likes = likes;
-    }
-
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Foro getForo() {
-        return foro;
-    }
-
-    public void setForo(Foro foro) {
-        this.foro = foro;
-    }
-
-    public Set<Reporte> getReportes() {
-        return reportes;
-    }
-
     public void addReporte(Reporte reporte) {
         this.getReportes().add(reporte);
         reporte.setComentario(this);
-    }
-
-    public Comentario getComentarioPadre() {
-        return comentarioPadre;
-    }
-
-    public void setComentarioPadre(Comentario comentarioPadre) {
-        this.comentarioPadre = comentarioPadre;
-    }
-
-    public Set<Comentario> getRespuestas() {
-        return respuestas;
     }
 
     public void addRespuesta(Comentario respuesta) {

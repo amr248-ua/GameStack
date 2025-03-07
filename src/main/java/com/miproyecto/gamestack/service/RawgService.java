@@ -1,6 +1,6 @@
 package com.miproyecto.gamestack.service;
 
-import com.miproyecto.gamestack.dto.*;
+import com.miproyecto.gamestack.dto.rawgApi.*;
 import com.miproyecto.gamestack.model.Genero;
 import com.miproyecto.gamestack.model.Plataforma;
 import com.miproyecto.gamestack.model.Videojuego;
@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+
 import java.util.List;
 
 @Transactional
@@ -20,7 +21,7 @@ import java.util.List;
 public class RawgService {
 
     private final WebClient webClient;
-    private final String API_KEY = "b63bc77ea7424d118a60bcc10f2b6ba6";
+    private final String API_KEY;
 
     @Autowired
     private VideojuegoRepository videojuegoRepository;
@@ -34,6 +35,7 @@ public class RawgService {
 
     public RawgService() {
         this.webClient = WebClient.create("https://api.rawg.io/api");
+        this.API_KEY = "b63bc77ea7424d118a60bcc10f2b6ba6";
     }
 
 
@@ -106,23 +108,13 @@ public class RawgService {
         }
     }
 
-    private String descripcionEnEspanol(String cadena) {
-        // Buscar la parte en español
-        String inicio = "<p>Español<br />";
-        int inicioIndex = cadena.indexOf(inicio);
-        String resultado = "";
+    private String quitarEtiquetas(String cadena) {
+        // Eliminar etiquetas HTML
+        cadena = cadena.replaceAll("<br />", "\n")
+                .replaceAll("</?p>", "")
+                .trim();
 
-        if (inicioIndex != -1) {
-            // Extraer solo la parte en español
-            resultado = cadena.substring(inicioIndex + inicio.length());
-
-            // Eliminar etiquetas HTML
-            resultado = resultado.replaceAll("<br />", "\n")
-                    .replaceAll("</?p>", "")
-                    .trim();
-
-        }
-        return resultado;
+        return cadena;
     }
 
     public void cargarJuegosDesdeRAWG() {
@@ -151,7 +143,7 @@ public class RawgService {
 
                         Videojuego videojuego = new Videojuego(
                                 game.getName(),
-                                descripcionEnEspanol(gameDetails.getDescription()),
+                                quitarEtiquetas(gameDetails.getDescription()),
                                 game.getBackground_image(),
                                 game.getReleased()
 
@@ -166,7 +158,6 @@ public class RawgService {
                         videojuegoRepository.save(videojuego);
 
                     }
-
 
                 }
                 url = response.getNext();

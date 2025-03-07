@@ -2,6 +2,8 @@ package com.miproyecto.gamestack.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -10,6 +12,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="plataformas")
+@Getter
+@Setter
 public class Plataforma implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,23 +35,6 @@ public class Plataforma implements Serializable {
         this.plataforma = plataforma;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPlataforma() {
-        return plataforma;
-    }
-    public void setPlataforma(String plataforma) {
-        this.plataforma = plataforma;
-    }
-    public Set<Videojuego> getVideojuegos() {
-        return videojuegos;
-    }
     public void addVideojuego(Videojuego videojuego) {
         // Hay que actualiar ambas colecciones, porque
         // JPA/Hibernate no lo hace automáticamente

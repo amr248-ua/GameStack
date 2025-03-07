@@ -1,4 +1,4 @@
-package com.miproyecto.gamestack.dto;
+package com.miproyecto.gamestack.dto.rawgApi;
 
 import lombok.Data;
 import java.util.List;

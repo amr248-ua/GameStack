@@ -3,14 +3,17 @@ package com.miproyecto.gamestack.model;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
-import java.util.HashSet;
+
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "notificaciones")
+@Getter
+@Setter
 public class Notificacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,50 +38,6 @@ public class Notificacion implements Serializable {
 
     public Notificacion(@NotNull String mensaje) {
         this.mensaje = mensaje;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
-
-    public Boolean getLeida() {
-        return leida;
-    }
-
-    public void setLeida(Boolean leida) {
-        this.leida = leida;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public String getAsunto() {
-        return asunto;
-    }
-
-    public void setAsunto(String asunto) {
-        this.asunto = asunto;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     @Override

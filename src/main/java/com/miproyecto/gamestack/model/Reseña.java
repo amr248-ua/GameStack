@@ -2,6 +2,8 @@ package com.miproyecto.gamestack.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "reseñas")
+@Getter
+@Setter
 public class Reseña implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -43,68 +47,6 @@ public class Reseña implements Serializable{
         this.contenido = contenido;
     }
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public Boolean getRecomienda() {
-        return recomienda;
-    }
-
-    public void setRecomienda(Boolean recomienda) {
-        this.recomienda = recomienda;
-    }
-
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Videojuego getVideojuego() {
-        return videojuego;
-    }
-
-    public void setVideojuego(Videojuego videojuego) {
-        this.videojuego = videojuego;
-    }
-
-    public Set<Reporte> getReportes() {
-        return reportes;
-    }
-
-    public void setReportes(Set<Reporte> reportes) {
-        this.reportes = reportes;
-    }
 
     @Override
     public boolean equals(Object o) {

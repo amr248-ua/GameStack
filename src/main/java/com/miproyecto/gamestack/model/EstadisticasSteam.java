@@ -3,15 +3,17 @@ package com.miproyecto.gamestack.model;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.Date;
-import java.util.HashSet;
+
 import java.util.Objects;
-import java.util.Set;
+
 
 @Entity
 @Table(name = "estadisticas_steam")
-
+@Getter
+@Setter
 public class EstadisticasSteam implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -35,45 +37,6 @@ public class EstadisticasSteam implements Serializable{
         this.descripcionLogro = descripcionLogro;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescripcionLogro() {
-        return descripcionLogro;
-    }
-
-    public void setDescripcionLogro(String descripcionLogro) {
-        this.descripcionLogro = descripcionLogro;
-    }
-
-    public Float getHorasJugadas() {
-        return horasJugadas;
-    }
-
-    public void setHorasJugadas(Float horasJugadas) {
-        this.horasJugadas = horasJugadas;
-    }
-
-    public Integer getAppId() {
-        return appId;
-    }
-
-    public void setAppId(Integer appId) {
-        this.appId = appId;
-    }
-
-    public RegistroJuegoLista getRegistroJuegoLista() {
-        return registroJuegoLista;
-    }
-
-    public void setRegistroJuegoLista(RegistroJuegoLista registroJuegoLista) {
-        this.registroJuegoLista = registroJuegoLista;
-    }
 
     @Override
     public boolean equals(Object o) {

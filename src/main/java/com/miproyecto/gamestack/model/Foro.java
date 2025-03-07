@@ -2,6 +2,8 @@ package com.miproyecto.gamestack.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,6 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "foros")
+@Getter
+@Setter
 public class Foro implements Serializable{
     private static final long serialVersionUID = 1L;
 
@@ -35,72 +39,15 @@ public class Foro implements Serializable{
     @OneToMany(mappedBy = "foro")
     Set<Reporte> reportes = new HashSet<>();
 
-    public Foro() {
-    }
-
+    public Foro() {}
     public Foro(@NotNull String tema) {
         this.tema = tema;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTema() {
-        return tema;
-    }
-
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public String getContenido() {
-        return contenido;
-    }
-
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
-    }
-
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
-
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public Set<Comentario> getComentarios() {
-        return comentarios;
-    }
 
     public void addComentario(Comentario comentario) {
         this.getComentarios().add(comentario);
         comentario.setForo(this);
-    }
-
-    public Set<Reporte> getReportes() {
-        return reportes;
     }
 
     public void addReporte(Reporte reporte) {

@@ -1,7 +1,9 @@
-package com.miproyecto.gamestack.dto;
+package com.miproyecto.gamestack.dto.rawgApi;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class RawgGame {
     private List<RawgTag> tags;
 
 
-    public Date getReleased() {
-        return new Date();
+    public LocalDate getReleased() {
+        return LocalDate.parse(this.released, DateTimeFormatter.ISO_LOCAL_DATE);
     }
 }
