@@ -32,4 +32,13 @@ public class UsuarioService {
             return modelMapper.map(usuarioNuevo, UsuarioData.class);
         }
     }
+
+    @Transactional(readOnly = true)
+    public UsuarioData findByEmail(String email) {
+        Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
+        if (usuario == null) return null;
+        else {
+            return modelMapper.map(usuario, UsuarioData.class);
+        }
+    }
 }
