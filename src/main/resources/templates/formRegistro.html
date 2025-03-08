@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home :: head (titulo='Registro')"></head>
+<body class="d-flex flex-column min-vh-100 bg-black">
+<div th:replace="layout/header :: navbar"></div>
+
+<div class="flex-grow-1">
+    <div class="d-flex flex-column registro-form">
+        <div class="container text-center text-white mt-3 mb-3">
+            <h2>Empieza a usar GameStack</h2>
+            <p><strong>Únete y empieza a registrar lo que juegas para no olvidarte de ninguna de tus aventuras.</strong><br>
+                Descubre que será lo próximo que jugarás y lo que recomienda nuestra comunidad.</p>
+            <hr>
+        </div>
+
+        <div class="container" style="width: 70%">
+            <form method="post" th:action="@{/registro}" th:object="${registroData}">
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">Email</label>
+                    <input type="email" class="form-control bg-input" id="email" th:field="*{email}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="user" class="form-label text-white">Nombre de usuario</label>
+                    <input type="text" class="form-control bg-input" id="user" th:field="*{username}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="fechaNacimiento" class="form-label text-white">Fecha de nacimiento</label>
+                    <input type="date" class="form-control bg-input" id="fechaNacimiento" th:field="*{fechaNacimiento}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password1" class="form-label text-white">Contraseña</label>
+                    <input type="password" class="form-control bg-input" id="password1" th:field="*{password}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password2" class="form-label text-white">Repite contraseña</label>
+                    <input type="password" class="form-control bg-input" id="password2">
+                </div>
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-outline-success">Crear cuenta</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>
