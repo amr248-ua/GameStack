@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -40,7 +41,7 @@ public class Usuario implements Serializable {
 
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @OneToMany(mappedBy = "usuario")
     Set<Foro> foros = new HashSet<>();
