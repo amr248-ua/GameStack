@@ -12,7 +12,7 @@ public class RegistroData {
     @Email
     private String email;
     private String password;
-    private String user;
+    private String username;
     private LocalDate fechaNacimiento;
 
 }

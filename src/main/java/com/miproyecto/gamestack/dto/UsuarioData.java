@@ -11,6 +11,6 @@ public class UsuarioData {
     private Long id;
     private String email;
     private String password;
-    private String user;
+    private String username;
     private LocalDate fechaNacimiento;
 }

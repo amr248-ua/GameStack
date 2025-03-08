@@ -32,7 +32,7 @@ public class Usuario implements Serializable {
 
     @NotNull
     private String email;
-    private String nombre;
+    private String username;
     private String password;
     private boolean admin = false;
     private boolean bloqueado = false;
@@ -129,12 +129,12 @@ public class Usuario implements Serializable {
             // Si tenemos los ID, comparamos por ID
             return Objects.equals(id, usuario.id);
         // si no comparamos por campos obligatorios
-        return this.nombre.equals(usuario.nombre);
+        return this.username.equals(usuario.username);
     }
 
     @Override
     public int hashCode() {
         // Generamos un hash basado en los campos obligatorios
-        return Objects.hash(nombre);
+        return Objects.hash(username);
     }
 }
