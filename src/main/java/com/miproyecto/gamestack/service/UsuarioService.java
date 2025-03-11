@@ -33,6 +33,22 @@ public class UsuarioService {
         }
     }
 
+    @Transactional
+    public UsuarioData actualizar(UsuarioData usuario) {
+        Optional<Usuario> usuarioBD = usuarioRepository.findByEmail(usuario.getEmail());
+        if (usuarioBD.isEmpty())
+            throw new UsuarioServiceException("El usuario " + usuario.getEmail() + " no está registrado");
+        else if (usuario.getEmail() == null)
+            throw new UsuarioServiceException("El usuario no tiene email");
+        else if (usuario.getPassword() == null)
+            throw new UsuarioServiceException("El usuario no tiene password");
+        else {
+            Usuario usuarioNuevo = modelMapper.map(usuario, Usuario.class);
+            usuarioNuevo = usuarioRepository.save(usuarioNuevo);
+            return modelMapper.map(usuarioNuevo, UsuarioData.class);
+        }
+    }
+
     @Transactional(readOnly = true)
     public UsuarioData findByEmail(String email) {
         Usuario usuario = usuarioRepository.findByEmail(email).orElse(null);
