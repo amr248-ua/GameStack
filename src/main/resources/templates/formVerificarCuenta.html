@@ -26,7 +26,12 @@
                 <div class="d-flex justify-content-center mb-3">
                     <button type="submit" class="btn btn-outline-success">Verificar cuenta</button>
                 </div>
-
+            </form>
+            <form method="post" th:action="@{/reenviar-codigo}">
+                <input type="hidden" name="email" th:value="${email}">
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-outline-warning">Reenviar código</button>
+                </div>
             </form>
         </div>
     </div>

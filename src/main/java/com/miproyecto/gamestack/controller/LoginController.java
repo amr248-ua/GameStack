@@ -104,5 +104,32 @@ public class LoginController {
         return "redirect:/verificar-cuenta";
     }
 
+    @PostMapping("/reenviar-codigo")
+    public String reenviarCodigo(String email, RedirectAttributes redirectAttributes) {
+        UsuarioData usuario = usuarioService.findByEmail(email);
+
+        if (usuario == null) {
+            return "redirect:/registro";
+        }
+
+        String codigoActivacion = emailService.generarCodigo(8);
+        usuario.setCodigoActivacion(codigoActivacion);
+        usuarioService.actualizar(usuario);
+
+        try {
+            Map<String, Object> variables = new HashMap<>();
+            variables.put("user", usuario.getUsername());
+            variables.put("codigo", usuario.getCodigoActivacion());
+
+            emailService.enviarCorreoConTemplate(email, "Verificar cuenta", variables);
+
+        } catch (MessagingException e) {
+            return "Error al enviar el correo: " + e.getMessage();
+        }
+
+        redirectAttributes.addFlashAttribute("email", email);
+        return "redirect:/verificar-cuenta";
+    }
+
 
 }
