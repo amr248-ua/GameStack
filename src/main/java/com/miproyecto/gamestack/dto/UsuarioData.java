@@ -12,5 +12,7 @@ public class UsuarioData {
     private String email;
     private String password;
     private String username;
+    private String codigoActivacion;
+    private Boolean activo;
     private LocalDate fechaNacimiento;
 }
