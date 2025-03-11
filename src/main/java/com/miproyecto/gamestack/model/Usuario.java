@@ -21,7 +21,7 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String steamId;
-    private String codigoActivavion;
+    private String codigoActivacion;
     private String fotoPerfil;
     private String biografia;
     private String privacidadLista;
