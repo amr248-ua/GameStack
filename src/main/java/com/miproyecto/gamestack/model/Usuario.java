@@ -76,7 +76,7 @@ public class Usuario implements Serializable {
     }
 
     // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
-    public Usuario(String email) {
+    public Usuario(@NotNull String email) {
         this.email = email;
     }
 
@@ -129,7 +129,7 @@ public class Usuario implements Serializable {
             // Si tenemos los ID, comparamos por ID
             return Objects.equals(id, usuario.id);
         // si no comparamos por campos obligatorios
-        return this.username.equals(usuario.username);
+        return this.email.equals(usuario.email);
     }
 
     @Override
