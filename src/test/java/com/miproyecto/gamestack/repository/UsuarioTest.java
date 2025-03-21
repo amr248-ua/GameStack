@@ -1,17 +1,14 @@
 package com.miproyecto.gamestack.repository;
 
 import com.miproyecto.gamestack.model.Usuario;
-import com.miproyecto.gamestack.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
