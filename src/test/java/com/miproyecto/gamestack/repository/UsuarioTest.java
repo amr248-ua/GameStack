@@ -25,7 +25,6 @@ public class UsuarioTest {
 
 
     @Test
-    @Transactional
     public void testCreateUsuario() throws ParseException {
         //GIVEN
         Usuario usuario = new Usuario();
@@ -45,4 +44,84 @@ public class UsuarioTest {
         assertThat(usuario.getBiografia()).isEqualTo("test");
         assertThat(usuario.getFechaNacimiento()).isEqualTo(fechaNacimiento);
     }
+
+    @Test
+    public void testIgualdadUsuariosConId() {
+        //GIVEN
+        Usuario usuario1 = new Usuario();
+        Usuario usuario2 = new Usuario();
+
+        //WHEN
+        usuario1.setId(1L);
+        usuario2.setId(1L);
+
+        //THEN
+        assertThat(usuario1).isEqualTo(usuario2);
+    }
+
+    @Test
+    public void testIgualdadUsuariosSinId() {
+        //GIVEN
+        Usuario usuario1 = new Usuario();
+        Usuario usuario2 = new Usuario();
+
+        //WHEN
+        usuario1.setEmail("test@test.com");
+        usuario2.setEmail("test@test.com");
+
+        //THEN
+        assertThat(usuario1).isEqualTo(usuario2);
+    }
+
+    @Test
+    public void testNotIgualdadUsuarios() {
+        //GIVEN
+        Usuario usuario1 = new Usuario();
+        Usuario usuario2 = new Usuario();
+
+        //WHEN
+        usuario1.setEmail("test1@test.com");
+        usuario2.setEmail("test2@test.com");
+
+        //THEN
+        assertThat(usuario1).isNotEqualTo(usuario2);
+    }
+
+    @Test
+    @Transactional
+    public void testGuardarUsuario() {
+        //GIVEN
+        Usuario usuario = new Usuario("test@test.com");
+        usuario.setUsername("test");
+        usuario.setPassword("123456");
+
+        //WHEN
+        usuarioRepository.save(usuario);
+
+        //THEN
+        assertThat(usuario.getId()).isNotNull();
+
+        Usuario usuarioGuardado = usuarioRepository.findById(usuario.getId()).orElse(null);
+        assertThat(usuarioGuardado).isNotNull();
+        assertThat(usuarioGuardado.getUsername()).isEqualTo("test");
+        assertThat(usuarioGuardado.getPassword()).isEqualTo("123456");
+        assertThat(usuarioGuardado.getEmail()).isEqualTo("test@test.com");
+
+    }
+
+    @Test
+    @Transactional
+    public void buscarUsuarioPorEmail() {
+        //GIVEN
+        Usuario usuario = new Usuario("test@test.com");
+        usuarioRepository.save(usuario);
+
+        //WHEN
+        Usuario usuarioGuardado = usuarioRepository.findByEmail("test@test.com").orElse(null);
+
+        //THEN
+        assertThat(usuarioGuardado).isNotNull();
+        assertThat(usuarioGuardado.getEmail()).isEqualTo("test@test.com");
+    }
+
 }
