@@ -15,7 +15,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/registro","/css/**","/js/**","/images/**","/bootstrap-icons/**","/verificar-cuenta","/h2-console/**").permitAll() // Permitir acceso a home y recursos públicos
+                        .requestMatchers("/", "/registro","/reenviar-codigo","/css/**","/js/**","/images/**","/bootstrap-icons/**","/verificar-cuenta","/h2-console/**").permitAll() // Permitir acceso a home y recursos públicos
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Restringir acceso según roles
                         .requestMatchers("/moderador/**").hasRole("MODERATOR")
                         .requestMatchers("/usuario/**").hasAnyRole("USER", "ADMIN", "MODERATOR")
