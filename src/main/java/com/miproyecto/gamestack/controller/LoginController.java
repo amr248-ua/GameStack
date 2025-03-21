@@ -5,6 +5,7 @@ import com.miproyecto.gamestack.dto.UsuarioData;
 import com.miproyecto.gamestack.dto.VerificarCuentaData;
 import com.miproyecto.gamestack.service.EmailService;
 import com.miproyecto.gamestack.service.UsuarioService;
+import com.miproyecto.gamestack.service.UsuarioServiceException;
 import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,6 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     UsuarioService usuarioService;
-    @Autowired
-    private EmailService emailService;
 
     @GetMapping("/registro")
     public String registroForm(Model model) {
@@ -40,33 +39,13 @@ public class LoginController {
             return "formRegistro";
         }
 
-        if (usuarioService.findByEmail(registroData.getEmail()) != null) {
+        try{
+            usuarioService.registrar(registroData);
+        } catch (UsuarioServiceException e) {
             model.addAttribute("registroData", registroData);
-            model.addAttribute("error", "El usuario " + registroData.getEmail() + " ya existe");
+            model.addAttribute("error", e.getMessage());
+
             return "formRegistro";
-        }
-
-        UsuarioData usuario = new UsuarioData();
-        usuario.setEmail(registroData.getEmail());
-        usuario.setPassword(registroData.getPassword());
-        usuario.setFechaNacimiento(registroData.getFechaNacimiento());
-        usuario.setUsername(registroData.getUsername());
-
-        String codigoActivacion = emailService.generarCodigo(8);
-        usuario.setCodigoActivacion(codigoActivacion);
-
-        usuarioService.registrar(usuario);
-
-        try {
-            Map<String, Object> variables = new HashMap<>();
-            variables.put("user", registroData.getUsername());
-            variables.put("codigo", codigoActivacion);
-
-            emailService.enviarCorreoConTemplate(registroData.getEmail(), "Verificar cuenta", variables);
-
-
-        } catch (MessagingException e) {
-            return "Error al enviar el correo: " + e.getMessage();
         }
 
         redirectAttributes.addFlashAttribute("email", registroData.getEmail());
@@ -87,44 +66,22 @@ public class LoginController {
             return "formVerificarCuenta";
         }
 
-        UsuarioData usuario = usuarioService.findByEmail(email);
-
-        if (usuario == null) {
-            return "redirect:/registro";
+        if (usuarioService.verificarCodigoActivacion(email, verificarCuentaData)==false) {
+            redirectAttributes.addFlashAttribute("email", email);
+            redirectAttributes.addFlashAttribute("error", "Codigo introducido incorrecto, revisa tu correo");
+            return "redirect:/verificar-cuenta";
         }
 
-        if(usuario.getCodigoActivacion().equals(verificarCuentaData.getCodigoActivacion())) {
-            usuario.setActivo(true);
-            usuarioService.actualizar(usuario);
-            return "redirect:/";
-        }
+        return "redirect:/";
 
-        redirectAttributes.addFlashAttribute("email", email);
-        redirectAttributes.addFlashAttribute("error", "Codigo introducido incorrecto, revisa tu correo");
-        return "redirect:/verificar-cuenta";
     }
 
     @PostMapping("/reenviar-codigo")
     public String reenviarCodigo(String email, RedirectAttributes redirectAttributes) {
-        UsuarioData usuario = usuarioService.findByEmail(email);
-
-        if (usuario == null) {
+        try{
+            usuarioService.reenviarCodigoVerificacion(email);
+        }catch (UsuarioServiceException e) {
             return "redirect:/registro";
-        }
-
-        String codigoActivacion = emailService.generarCodigo(8);
-        usuario.setCodigoActivacion(codigoActivacion);
-        usuarioService.actualizar(usuario);
-
-        try {
-            Map<String, Object> variables = new HashMap<>();
-            variables.put("user", usuario.getUsername());
-            variables.put("codigo", usuario.getCodigoActivacion());
-
-            emailService.enviarCorreoConTemplate(email, "Verificar cuenta", variables);
-
-        } catch (MessagingException e) {
-            return "Error al enviar el correo: " + e.getMessage();
         }
 
         redirectAttributes.addFlashAttribute("email", email);
