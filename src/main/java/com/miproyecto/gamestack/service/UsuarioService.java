@@ -31,7 +31,7 @@ public class UsuarioService {
     public UsuarioData registrar(RegistroData registroData) throws UsuarioServiceException{
         Optional<Usuario> usuarioBD = usuarioRepository.findByEmail(registroData.getEmail());
         if (usuarioBD.isPresent())
-            throw new UsuarioServiceException("El usuario con email" + registroData.getEmail() + " ya está registrado");
+            throw new UsuarioServiceException("El usuario con email " + registroData.getEmail() + " ya está registrado");
         else {
             Usuario usuario = new Usuario();
             usuario.setEmail(registroData.getEmail());
@@ -60,14 +60,18 @@ public class UsuarioService {
         }
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public boolean verificarCodigoActivacion(String email, VerificarCuentaData verificarCuentaData) {
         UsuarioData usuario = findByEmail(email);
         if (usuario == null) return false;
         else {
-            usuario.setActivo(true);
-            actualizar(usuario);
-            return usuario.getCodigoActivacion().equals(verificarCuentaData.getCodigoActivacion());
+            if(usuario.getCodigoActivacion().equals(verificarCuentaData.getCodigoActivacion())) {
+                usuario.setActivo(true);
+                actualizar(usuario);
+                return true;
+            }
+
+            return false;
         }
     }
 
@@ -96,10 +100,7 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioData actualizar(UsuarioData usuario) {
-        Optional<Usuario> usuarioBD = usuarioRepository.findByEmail(usuario.getEmail());
-        if (usuarioBD.isEmpty())
-            throw new UsuarioServiceException("El usuario " + usuario.getEmail() + " no está registrado");
-        else if (usuario.getEmail() == null)
+        if (usuario.getEmail() == null)
             throw new UsuarioServiceException("El usuario no tiene email");
         else if (usuario.getPassword() == null)
             throw new UsuarioServiceException("El usuario no tiene password");
