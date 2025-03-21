@@ -22,8 +22,7 @@ public class UsuarioTest {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-    @MockitoBean
-    private EmailService emailService;
+
 
     @Test
     @Transactional
