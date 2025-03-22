@@ -66,7 +66,7 @@ public class LoginController {
             return "formVerificarCuenta";
         }
 
-        if (usuarioService.verificarCodigoActivacion(email, verificarCuentaData)==false) {
+        if (!usuarioService.verificarCodigoActivacion(email, verificarCuentaData)) {
             redirectAttributes.addFlashAttribute("email", email);
             redirectAttributes.addFlashAttribute("error", "Codigo introducido incorrecto, revisa tu correo");
             return "redirect:/verificar-cuenta";

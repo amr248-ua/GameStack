@@ -102,4 +102,58 @@ public class UsuarioServiceTest {
         assertThat(verificado).isFalse();
         assertThat(usuarioVerificado.getActivo()).isFalse();
     }
+
+    @Test
+    public void servicioReenviarCodigoVerificacion() {
+        //GIVEN
+        String email = addUsuarioBD();
+        UsuarioData usuario = usuarioService.findByEmail(email);
+        String codigo = usuario.getCodigoActivacion();
+
+        //WHEN
+        usuarioService.reenviarCodigoVerificacion(email);
+
+        //THEN
+        UsuarioData nuevoUsuario = usuarioService.findByEmail(email);
+        assertThat(nuevoUsuario.getCodigoActivacion()).isNotEqualTo(codigo);
+    }
+
+    @Test
+    public void servicioReenviarCodigoVerificacionUsuarioNoEncontrado() {
+        //GIVEN
+        String email = "email@gmail.com";
+
+        //WHEN & THEN
+        assertThrows(UsuarioServiceException.class, () -> usuarioService.reenviarCodigoVerificacion(email), "Usuario no encontrado");
+    }
+
+    @Test
+    public void servicioActualizarUsuario() {
+        //GIVEN
+        String email = addUsuarioBD();
+        UsuarioData usuario = usuarioService.findByEmail(email);
+        usuario.setUsername("miproyecto2");
+        usuario.setPassword("miproyecto2");
+
+        //WHEN
+        usuarioService.actualizar(usuario);
+
+        //THEN
+        UsuarioData usuarioActualizado = usuarioService.findByEmail(email);
+        assertThat(usuarioActualizado.getUsername()).isEqualTo("miproyecto2");
+        assertThat(usuarioActualizado.getPassword()).isEqualTo("miproyecto2");
+    }
+
+    @Test
+    public void servicioEncontrarUsuarioPorEmail() {
+        //GIVEN
+        String email = addUsuarioBD();
+
+        //WHEN
+        UsuarioData usuario = usuarioService.findByEmail(email);
+
+        //THEN
+        assertThat(usuario).isNotNull();
+        assertThat(usuario.getEmail()).isEqualTo(email);
+    }
 }
