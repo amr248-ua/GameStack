@@ -15,10 +15,21 @@
     border-radius: 20px; /* Bordes redondeados */
 }
 
+.registro-form{
+    background-color: #333030; /* Color diferente */
+    width: 50%; /* No ocupa toda la pantalla */
+    margin: 50px auto; /* Centrado */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
 .bg-dark{
     background-color: #333030 !important; /* Color diferente */
 }
 
 .bg-black{
     background-color: #212121 !important; /* Color diferente */
+}
+
+.bg-input{
+    background-color: #444242 !important;
 }

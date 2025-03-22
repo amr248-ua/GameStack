@@ -7,10 +7,8 @@
                     Descubre recomendaciones y más uniéndote a nuestra comunidad.</p>
             </div>
             <div class="p-3">
-                <form class="d-flex" role="form">
-                    <input class="btn btn-outline-success me-2" type="submit" value="Iniciar sesión" th:href="@{/login}">
-                    <input class="btn btn-outline-success" type="submit" value="Registrarse" th:href="@{/register}">
-                </form>
+                <a class="btn btn-outline-success me-2" th:href="@{/login}">Iniciar sesión</a>
+                <a class="btn btn-outline-success" th:href="@{/registro}">Registrarse</a>
             </div>
         </div>
 
@@ -22,7 +20,7 @@
                     <a href="#">Iniciar sesión</a>
                 </div>
                 <div class="col">
-                    <a href="#">Registrarse</a>
+                    <a href="/registro">Registrarse</a>
                 </div>
                 <div class="col">
                     <a href="#">Juegos</a>

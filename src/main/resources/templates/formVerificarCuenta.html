@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home :: head (titulo='Registro')"></head>
+<body class="d-flex flex-column min-vh-100 bg-black">
+<div th:replace="layout/header :: navbar"></div>
+
+<div class="flex-grow-1">
+    <div class="d-flex flex-column registro-form">
+        <div class="container text-center text-white mt-3 mb-3">
+            <h2>Verificar cuenta</h2>
+            <p><strong>Por favor, introduce el código de verificación que te hemos enviado a tu correo electrónico.</strong></p>
+            <hr>
+        </div>
+
+        <div class="container" style="width: 70%">
+            <div th:if="${error != null}">
+                <p class="text-danger" th:text="${error}" th:if="${error}"></p>
+            </div>
+
+            <form method="post" th:action="@{/verificar-cuenta}" th:object="${verificarCuentaData}">
+                <div class="mb-3">
+                    <label for="codigo" class="form-label text-white">Código de verificación</label>
+                    <input type="text" class="form-control bg-input" name="codigo" id="codigo" th:field="*{codigoActivacion}" required>
+                    <input type="hidden" name="email" th:value="${email}">
+                </div>
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-outline-success">Verificar cuenta</button>
+                </div>
+            </form>
+            <form method="post" th:action="@{/reenviar-codigo}">
+                <input type="hidden" name="email" th:value="${email}">
+                <div class="d-flex justify-content-center mb-3">
+                    <button type="submit" class="btn btn-outline-warning">Reenviar código</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout/footer :: footer"></div>
+</body>
+</html>

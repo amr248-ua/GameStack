@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String steamId;
-    private String codigoActivavion;
+    private String codigoActivacion;
     private String fotoPerfil;
     private String biografia;
     private String privacidadLista;
@@ -31,7 +32,7 @@ public class Usuario implements Serializable {
 
     @NotNull
     private String email;
-    private String nombre;
+    private String username;
     private String password;
     private boolean admin = false;
     private boolean bloqueado = false;
@@ -40,7 +41,7 @@ public class Usuario implements Serializable {
 
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
 
     @OneToMany(mappedBy = "usuario")
     Set<Foro> foros = new HashSet<>();
@@ -75,7 +76,7 @@ public class Usuario implements Serializable {
     }
 
     // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
-    public Usuario(String email) {
+    public Usuario(@NotNull String email) {
         this.email = email;
     }
 
@@ -128,12 +129,12 @@ public class Usuario implements Serializable {
             // Si tenemos los ID, comparamos por ID
             return Objects.equals(id, usuario.id);
         // si no comparamos por campos obligatorios
-        return this.nombre.equals(usuario.nombre);
+        return this.email.equals(usuario.email);
     }
 
     @Override
     public int hashCode() {
         // Generamos un hash basado en los campos obligatorios
-        return Objects.hash(nombre);
+        return Objects.hash(username);
     }
 }
