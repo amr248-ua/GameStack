@@ -30,8 +30,11 @@ public class UsuarioService {
     @Transactional
     public UsuarioData registrar(RegistroData registroData) throws UsuarioServiceException{
         Optional<Usuario> usuarioBD = usuarioRepository.findByEmail(registroData.getEmail());
+        Optional<Usuario> usuarioBD2 = usuarioRepository.findByUsername(registroData.getUsername());
         if (usuarioBD.isPresent())
             throw new UsuarioServiceException("El usuario con email " + registroData.getEmail() + " ya está registrado");
+        else if (usuarioBD2.isPresent())
+            throw new UsuarioServiceException("El usuario con nombre de usuario " + registroData.getUsername() + " ya está registrado");
         else {
             Usuario usuario = new Usuario();
             usuario.setEmail(registroData.getEmail());

@@ -30,8 +30,9 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     private boolean admin = false;
@@ -76,8 +77,9 @@ public class Usuario implements Serializable {
     }
 
     // Constructor público con los atributos obligatorios. En este caso el correo electrónico.
-    public Usuario(@NotNull String email) {
+    public Usuario(String email,String username) {
         this.email = email;
+        this.username = username;
     }
 
     public void addForo(Foro foro) {
