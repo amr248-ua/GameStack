@@ -25,8 +25,17 @@ public class SecurityConfig {
                 )
                 .requiresChannel(channel -> channel.anyRequest().requiresSecure())
                 //https
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll) // Activa la página de login predeterminada
-                .logout(LogoutConfigurer::permitAll); // Habilita el logout
+                .formLogin(form -> form
+                        .loginPage("/login") // Indica que usaremos nuestra propia página de login
+                        .loginProcessingUrl("/process-login") // Donde se enviará el formulario
+                        .defaultSuccessUrl("/", true) // Página a la que se redirige después de login exitoso
+                        .permitAll() // Permitir acceso a la página de login sin autenticación
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll()
+                );
         http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)); // Permitir acceso a la consola de H2
         http.csrf(AbstractHttpConfigurer::disable); // Deshabilitar CSRF
         return http.build();

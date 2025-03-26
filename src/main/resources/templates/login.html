@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="home :: head (titulo='Login')"></head>
+<body class="d-flex flex-column min-vh-100 bg-black">
+
+<div th:replace="layout/header :: navbar"></div>
+
+<div class="container">
+    <div class="d-flex flex-column registro-form">
+        <h2 class="text-center text-white mt-3">Iniciar Sesión</h2>
+
+        <!-- Mensaje de error si el login falla -->
+        <div th:if="${param.error}" class="alert alert-danger text-center">
+            Usuario o contraseña incorrectos
+        </div>
+
+        <!-- Mensaje si el usuario cierra sesión -->
+        <div th:if="${param.logout}" class="alert alert-success text-center">
+            Has cerrado sesión exitosamente
+        </div>
+
+        <div class="container mt-3 mb-3" style="width: 70%">
+            <form th:action="@{/process-login}" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label text-white">Usuario:</label>
+                    <input type="text" id="username" name="username" class="form-control bg-input" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label text-white">Contraseña:</label>
+                    <input type="password" id="password" name="password" class="form-control bg-input" required>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">Ingresar</button>
+            </form>
+        </div>
+
+        <div class="text-center mt-3 mb-3">
+            <a href="/registro">¿No tienes cuenta? Regístrate aquí</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="layout/footer :: footer"></div>
+
+</body>
+</html>
