@@ -8,24 +8,43 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" th:href="@{/}">Juegos</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Juegos</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="#">Buscar videojuego</a></li>
                             <li><a class="dropdown-item" href="#">Top juegos</a></li>
                             <li><a class="dropdown-item" href="#">Importar de Steam</a></li>
-
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="/foros" th:href="@{/foros}">Foros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/chatbot" th:href="@{/chatbot}">Chatbot</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/foros}">Foros</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/chatbot}">Chatbot</a></li>
                 </ul>
                 <form class="d-flex me-5" role="search">
                     <input class="form-control" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit"><i class="bi-search"></i></button>
                 </form>
 
-                <a class="btn btn-outline-success me-2" th:href="@{/login}">Iniciar sesión</a>
-                <a class="btn btn-outline-success" th:href="@{/registro}">Registrarse</a>
+                <!-- Mostrar si el usuario NO está autenticado -->
+                <div th:if="${#authorization.expression('isAnonymous()')}">
+                    <a class="btn btn-outline-success me-2" th:href="@{/login}">Iniciar sesión</a>
+                    <a class="btn btn-outline-success" th:href="@{/registro}">Registrarse</a>
+                </div>
+
+                <!-- Mostrar si el usuario ESTÁ autenticado -->
+                <div th:if="${#authorization.expression('isAuthenticated()')}" class="dropdown">
+                    <button class="btn btn-outline-success dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <span th:text="${#authentication.name}">Usuario</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" href="#">Configuración</a></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button class="dropdown-item" type="submit">Cerrar sesión</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+
             </div>
         </div>
     </nav>
