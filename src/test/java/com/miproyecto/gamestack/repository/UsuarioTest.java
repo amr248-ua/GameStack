@@ -88,7 +88,7 @@ public class UsuarioTest {
     @Transactional
     public void testGuardarUsuario() {
         //GIVEN
-        Usuario usuario = new Usuario("test@test.com");
+        Usuario usuario = new Usuario("test@test.com", "test");
         usuario.setUsername("test");
         usuario.setPassword("123456");
 
@@ -110,7 +110,7 @@ public class UsuarioTest {
     @Transactional
     public void buscarUsuarioPorEmail() {
         //GIVEN
-        Usuario usuario = new Usuario("test@test.com");
+        Usuario usuario = new Usuario("test@test.com", "test");
         usuarioRepository.save(usuario);
 
         //WHEN
