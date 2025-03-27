@@ -5,7 +5,7 @@
 
 <div th:replace="layout/header :: navbar"></div>
 
-<div class="container">
+<div class="flex-grow-1">
     <div class="d-flex flex-column registro-form">
         <h2 class="text-center text-white mt-3">Iniciar Sesión</h2>
 
@@ -19,7 +19,7 @@
             Has cerrado sesión exitosamente
         </div>
 
-        <div class="container mt-3 mb-3" style="width: 70%">
+        <div class="container mt-3 mb-3" style="width: 30%">
             <form th:action="@{/process-login}" method="post">
                 <div class="mb-3">
                     <label for="username" class="form-label text-white">Usuario:</label>

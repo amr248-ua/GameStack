@@ -1,35 +1,46 @@
+:root {
+    --bg-color: #222b4c;
+    --main-color-1: #1c233e;
+    --main-color-3: #212643;
+    --main-color-2:#576CBC;
+}
+
 .btn-outline-success {
-    border-color: #957AA6 !important;  /* Nuevo color del borde */
+    border-color: var(--main-color-2) !important;  /* Nuevo color del borde */
+    background-color: var(--main-color-2) !important; /* Color diferente */
     color: white !important; /* Color del texto */
 }
 .btn-outline-success:hover {
-    background-color: #957AA6 !important;
-    border-color: #957AA6 !important;
+    background-color: var(--main-color-2) !important;
+    border-color: var(--main-color-2) !important;
 }
 
 .custom-bg {
-     /* Ajusta la altura según necesites */
-    background-color: #333030; /* Color diferente */
+    background-color: var(--main-color-1); /* Color diferente */
     width: 80%; /* No ocupa toda la pantalla */
     margin: 20px auto; /* Centrado */
     border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
 }
 
 .registro-form{
-    background-color: #333030; /* Color diferente */
+    background-color: var(--bg-color); /* Color diferente */
     width: 50%; /* No ocupa toda la pantalla */
     margin: 50px auto; /* Centrado */
     border-radius: 10px; /* Bordes redondeados */
 }
 
 .bg-dark{
-    background-color: #333030 !important; /* Color diferente */
+    background-color: var(--main-color-1) !important; /* Color diferente */
 }
 
 .bg-black{
-    background-color: #212121 !important; /* Color diferente */
+    background-color: var(--bg-color) !important; /* Color diferente */
 }
 
 .bg-input{
-    background-color: #444242 !important;
+    background-color: var(--main-color-2) !important;
+    color: white !important; /* Color del texto */
+    border: var(--main-color-1) !important; /* Sin borde */
+
 }
