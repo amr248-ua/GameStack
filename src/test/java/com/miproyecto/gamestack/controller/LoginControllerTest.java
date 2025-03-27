@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
@@ -47,7 +48,7 @@ public class LoginControllerTest {
 
         //THEN
         try {
-            this.mockMvc.perform(post("/registro")
+            this.mockMvc.perform(post("https://localhost:8443/registro")
                     .param("email", "test@test.com")
                     .param("user", "test")
                     .param("password1", "test")
@@ -74,7 +75,7 @@ public class LoginControllerTest {
 
         //THEN
         try {
-            this.mockMvc.perform(post("/verificar-cuenta")
+            this.mockMvc.perform(post("https://localhost:8443/verificar-cuenta")
                     .param("email", "test@test.com")
                     .param("codigoActivacion", "12345678"))
                     .andExpect(status().is3xxRedirection())
@@ -98,7 +99,7 @@ public class LoginControllerTest {
 
         //THEN
         try {
-            this.mockMvc.perform(post("/verificar-cuenta")
+            this.mockMvc.perform(post("https://localhost:8443/verificar-cuenta")
                             .param("email", "test@test.com")
                             .param("codigoActivacion", "12345678"))
                     .andExpect(status().is3xxRedirection())

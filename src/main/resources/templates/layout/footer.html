@@ -6,7 +6,7 @@
                 <p><strong>Mantén un registro de los juegos que has completado.</strong><br>
                     Descubre recomendaciones y más uniéndote a nuestra comunidad.</p>
             </div>
-            <div class="p-3">
+            <div th:if="${#authorization.expression('isAnonymous()')}" class="p-3">
                 <a class="btn btn-outline-success me-2" th:href="@{/login}">Iniciar sesión</a>
                 <a class="btn btn-outline-success" th:href="@{/registro}">Registrarse</a>
             </div>
@@ -16,10 +16,10 @@
 
         <div class="container text-center p-2">
             <div class="row">
-                <div class="col">
+                <div th:if="${#authorization.expression('isAnonymous()')}" class="col">
                     <a href="#">Iniciar sesión</a>
                 </div>
-                <div class="col">
+                <div th:if="${#authorization.expression('isAnonymous()')}" class="col">
                     <a href="/registro">Registrarse</a>
                 </div>
                 <div class="col">
@@ -34,7 +34,7 @@
                 <div class="col">
                     <a href="#">Foro</a>
                 </div>
-                <div class="col">
+                <div th:if="${#authorization.expression('isAuthenticated()')}" class="col">
                     <a href="#">Mi perfil</a>
                 </div>
                 <div class="col">
