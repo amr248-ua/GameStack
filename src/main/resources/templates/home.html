@@ -3,7 +3,7 @@
 <head th:fragment="head (titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${titulo}"></title>
+    <title th:text="${titulo ?: 'GameStack - Home'}"></title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -14,7 +14,7 @@
 <body class="d-flex flex-column min-vh-100 bg-black">
 
 <!-- Navbar -->
-<div th:replace="layout/header :: navbar"></div>
+<div th:replace="~{layout/header :: navbar}"></div>
 
 <div th:fragment="content" class="flex-grow-1">
     <div class="position-relative text-white text-center d-flex align-items-center justify-content-center"
@@ -24,7 +24,7 @@
              style="background: url('https://i.blogs.es/4d650a/gogga/1366_521.jpeg') center/cover; opacity: 0.50;">
         </div>
 
-        <h2 class="position-relative text-white">
+        <h2 class="position-relative game-stack-text">
             Únete ahora y registra todos tus juegos, no olvides lo que has jugado y descubre tu próxima aventura.
             <br>
             <span class="text-uppercase">Únete a nuestra comunidad de jugadores</span>
@@ -32,8 +32,8 @@
 
     </div>
 
-    <div class="d-flex flex-column custom-bg">
-        <div class="container text-center text-white mt-2 mb-2">
+    <div class="d-flex flex-column custom-panel">
+        <div class="container text-center game-stack-text mt-3 mb-2">
             <h2>Juegos populares</h2>
         </div>
 
@@ -103,7 +103,7 @@
 </div>
 
 <!-- Footer -->
-<div th:replace="layout/footer :: footer"></div>
+<div th:replace="~{layout/footer :: footer}"></div>
 
 </body>
 </html>

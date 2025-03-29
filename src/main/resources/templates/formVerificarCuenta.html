@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="home :: head (titulo='Registro')"></head>
+<head th:replace="~{home :: head (titulo='Verificar Cuenta')}"></head>
 <body class="d-flex flex-column min-vh-100 bg-black">
-<div th:replace="layout/header :: navbar"></div>
+<div th:replace="~{layout/header :: navbar}"></div>
 
-<div class="flex-grow-1">
-    <div class="d-flex flex-column registro-form">
+<div class="flex-grow-1 mt-5">
+    <div class="d-flex flex-column custom-form">
         <div class="container text-center text-white mt-3 mb-3">
             <h2>Verificar cuenta</h2>
             <p><strong>Por favor, introduce el código de verificación que te hemos enviado a tu correo electrónico.</strong></p>
@@ -24,7 +24,7 @@
                     <input type="hidden" name="email" th:value="${email}">
                 </div>
                 <div class="d-flex justify-content-center mb-3">
-                    <button type="submit" class="btn btn-outline-success">Verificar cuenta</button>
+                    <button type="submit" class="btn btn-success">Verificar cuenta</button>
                 </div>
             </form>
             <form method="post" th:action="@{/reenviar-codigo}">
@@ -37,6 +37,6 @@
     </div>
 </div>
 
-<div th:replace="layout/footer :: footer"></div>
+<div th:replace="~{layout/footer :: footer}"></div>
 </body>
 </html>

@@ -1,35 +1,132 @@
+:root {
+    --bg-color: #222b4c;
+    --main-color-1: #1c233e;
+    --main-color-3: #212643;
+    --main-color-2:#576CBC;
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif; /* Cambia la tipografía */
+    font-size: 28px; /* Tamaño del texto */
+    font-weight: bold; /* Hace el texto más grueso */
+    color: white; /* Azul claro como color principal */
+    text-shadow: -2px -2px 0 var(--main-color-1),
+    2px -2px 0 var(--main-color-1),
+    -2px 2px 0 var(--main-color-1),
+    2px 2px 0 var(--main-color-1); /* Contorno en azul oscuro */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    transition: all 0.3s ease-in-out; /* Suaviza los cambios de estilo */
+}
+
+.navbar-brand:hover {
+    color: white; /* Color de fondo al pasar el mouse */
+    text-shadow: -2px -2px 0 var(--main-color-3),
+    2px -2px 0 #957AA6,
+    -2px 2px 0 #957AA6,
+    2px 2px 0 #957AA6; /* Contorno más oscuro al pasar el mouse */
+}
+
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.navbar {
+    background-color: rgba(255, 255, 255, 0) !important; /* Negro semi-transparente */
+    /*backdrop-filter: blur(10px);  Efecto de desenfoque */
+}
+
+.game-stack-text{
+    font-family: 'Poppins', sans-serif; /* Cambia la tipografía */
+    font-size: 28px; /* Tamaño del texto */
+    font-weight: bold; /* Hace el texto más grueso */
+    color: white; /* Azul claro como color principal */
+    text-shadow: -2px -2px 0 var(--main-color-1),
+    2px -2px 0 var(--main-color-1),
+    -2px 2px 0 var(--main-color-1),
+    2px 2px 0 var(--main-color-1); /* Contorno en azul oscuro */
+    letter-spacing: 2px; /* Espaciado entre letras */
+    transition: all 0.3s ease-in-out; /* Suaviza los cambios de estilo */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 30px; /* Reduce el ancho del botón */
+    height: 30px; /* Reduce la altura del botón */
+    top: 50%; /* Centra verticalmente los botones */
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejor visibilidad */
+    border-radius: 50%; /* Hace que los botones sean circulares */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px; /* Reduce el tamaño del icono */
+    height: 20px;
+}
+
+.card{
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Suaviza la transformación */
+}
+
+.card-body{
+    background-color: var(--bg-color); /* Color diferente */
+    border-color: var(--bg-color);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
 .btn-outline-success {
-    border-color: #957AA6 !important;  /* Nuevo color del borde */
+    border-color: var(--main-color-1) !important;  /* Nuevo color del borde */
+    background-color: var(--main-color-1) !important;  /*Color diferente */
     color: white !important; /* Color del texto */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
 }
 .btn-outline-success:hover {
-    background-color: #957AA6 !important;
-    border-color: #957AA6 !important;
+    background-color: var(--main-color-2) !important;
+    border-color: var(--main-color-2) !important;
 }
 
-.custom-bg {
-     /* Ajusta la altura según necesites */
-    background-color: #333030; /* Color diferente */
+.btn-success {
+    background-color: var(--main-color-2) !important;  /*Color diferente */
+    border-color: var(--main-color-2) !important;  /* Nuevo color del borde */
+    color: white !important; /* Color del texto */
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
+}
+.btn-success:hover {
+    border-color: var(--main-color-1) !important;
+    background-color: var(--main-color-2) !important;
+}
+
+.custom-panel {
+    background-color: var(--main-color-1); /* Color diferente */
     width: 80%; /* No ocupa toda la pantalla */
-    margin: 20px auto; /* Centrado */
+    margin: 40px auto; /* Centrado */
     border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
 }
 
-.registro-form{
-    background-color: #333030; /* Color diferente */
+.custom-form{
+    background-color: var(--bg-color); /* Color diferente */
     width: 50%; /* No ocupa toda la pantalla */
     margin: 50px auto; /* Centrado */
     border-radius: 10px; /* Bordes redondeados */
 }
 
 .bg-dark{
-    background-color: #333030 !important; /* Color diferente */
+    background-color: var(--main-color-1) !important; /* Color diferente */
 }
 
 .bg-black{
-    background-color: #212121 !important; /* Color diferente */
+    background-color: var(--bg-color) !important; /* Color diferente */
 }
 
 .bg-input{
-    background-color: #444242 !important;
+    background-color: var(--main-color-2) !important;
+    color: white !important; /* Color del texto */
+    border: var(--main-color-1) !important; /* Sin borde */
+
 }
