@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="home :: head (titulo='Registro')"></head>
+<head th:replace="~{home :: head (titulo='Registro')}"></head>
 <body class="d-flex flex-column min-vh-100 bg-black">
-<div th:replace="layout/header :: navbar"></div>
+<div th:replace="~{layout/header :: navbar}"></div>
 
 <div class="flex-grow-1 mt-4">
     <div class="d-flex flex-column custom-form">
@@ -54,7 +54,7 @@
     </div>
 </div>
 
-<div th:replace="layout/footer :: footer"></div>
+<div th:replace="~{layout/footer :: footer}"></div>
 </body>
 </html>
 

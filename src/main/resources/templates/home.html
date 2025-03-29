@@ -3,7 +3,7 @@
 <head th:fragment="head (titulo)">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title th:text="${titulo}"></title>
+    <title th:text="${titulo ?: 'GameStack - Home'}"></title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
@@ -14,7 +14,7 @@
 <body class="d-flex flex-column min-vh-100 bg-black">
 
 <!-- Navbar -->
-<div th:replace="layout/header :: navbar"></div>
+<div th:replace="~{layout/header :: navbar}"></div>
 
 <div th:fragment="content" class="flex-grow-1">
     <div class="position-relative text-white text-center d-flex align-items-center justify-content-center"
@@ -33,7 +33,7 @@
     </div>
 
     <div class="d-flex flex-column custom-panel">
-        <div class="container text-center game-stack-text mt-2 mb-2">
+        <div class="container text-center game-stack-text mt-3 mb-2">
             <h2>Juegos populares</h2>
         </div>
 
@@ -103,7 +103,7 @@
 </div>
 
 <!-- Footer -->
-<div th:replace="layout/footer :: footer"></div>
+<div th:replace="~{layout/footer :: footer}"></div>
 
 </body>
 </html>
