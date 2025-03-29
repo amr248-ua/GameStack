@@ -122,4 +122,13 @@ public class UsuarioService {
             return modelMapper.map(usuario, UsuarioData.class);
         }
     }
+
+    @Transactional(readOnly = true)
+    public UsuarioData findByUsername(String username) {
+        Usuario usuario = usuarioRepository.findByUsername(username).orElse(null);
+        if (usuario == null) return null;
+        else {
+            return modelMapper.map(usuario, UsuarioData.class);
+        }
+    }
 }
