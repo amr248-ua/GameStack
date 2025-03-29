@@ -48,6 +48,37 @@
     transition: all 0.3s ease-in-out; /* Suaviza los cambios de estilo */
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+    width: 30px; /* Reduce el ancho del botón */
+    height: 30px; /* Reduce la altura del botón */
+    top: 50%; /* Centra verticalmente los botones */
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para mejor visibilidad */
+    border-radius: 50%; /* Hace que los botones sean circulares */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    width: 20px; /* Reduce el tamaño del icono */
+    height: 20px;
+}
+
+.card{
+    background-color: var(--bg-color);
+    border-radius: 20px;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    transition: transform 0.3s ease; /* Suaviza la transformación */
+}
+
+.card-body{
+    background-color: var(--bg-color); /* Color diferente */
+    border-color: var(--bg-color);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
 .btn-outline-success {
     border-color: var(--main-color-1) !important;  /* Nuevo color del borde */
     background-color: var(--main-color-1) !important;  /*Color diferente */
@@ -61,6 +92,7 @@
 
 .btn-success {
     background-color: var(--main-color-2) !important;  /*Color diferente */
+    border-color: var(--main-color-2) !important;  /* Nuevo color del borde */
     color: white !important; /* Color del texto */
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); /* Sombra suave */
 }
