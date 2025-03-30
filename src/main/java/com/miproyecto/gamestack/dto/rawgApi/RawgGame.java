@@ -17,7 +17,6 @@ public class RawgGame {
     private String background_image;
     private List<RawgTag> tags;
 
-
     public LocalDate getReleased() {
         return LocalDate.parse(this.released, DateTimeFormatter.ISO_LOCAL_DATE);
     }
