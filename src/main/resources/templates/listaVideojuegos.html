@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: head (titulo='Videojuegos')}"></head>
+<body class="d-flex flex-column min-vh-100 bg-black">
+<div th:replace="~{layout/header :: navbar}"></div>
+
+<div class="flex-grow-1 mt-4">
+    <div class="container mt-4">
+        <h2 class="text-center">Lista de Videojuegos</h2>
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Género</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="videojuego : ${paginaVideojuegos.content}">
+                <td th:text="${videojuego.id}"></td>
+                <td th:text="${videojuego.titulo}"></td>
+                <td th:text="${videojuego.generos}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Paginación -->
+        <nav>
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${paginaActual == 0} ? 'disabled'">
+                    <a class="page-link" th:href="@{/videojuegos(page=${paginaActual - 1})}">Anterior</a>
+                </li>
+                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPaginas - 1)}"
+                    th:classappend="${i == paginaActual} ? 'active'">
+                    <a class="page-link" th:href="@{/videojuegos(page=${i})}" th:text="${i + 1}"></a>
+                </li>
+                <li class="page-item" th:classappend="${paginaActual + 1 >= totalPaginas} ? 'disabled'">
+                    <a class="page-link" th:href="@{/videojuegos(page=${paginaActual + 1})}">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>
