@@ -16,9 +16,9 @@ public class VideojuegoData {
     private LocalDate fechaLanzamiento;
     private float puntuacionPromedio;
 
-    private Set<String> plataformas;
-    private Set<String> generos;
-    private Set<String> tags;
+    private Set<PlataformaData> plataformas;
+    private Set<GeneroData> generos;
+    private Set<TagData> tags;
     private Set<String> publishers;
     private Set<String> developers;
 }
