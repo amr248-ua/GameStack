@@ -79,6 +79,10 @@
     border-bottom-right-radius: 20px;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 .btn-outline-success {
     border-color: var(--main-color-1) !important;  /* Nuevo color del borde */
     background-color: var(--main-color-1) !important;  /*Color diferente */
