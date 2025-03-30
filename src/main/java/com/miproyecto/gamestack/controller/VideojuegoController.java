@@ -17,10 +17,10 @@ public class VideojuegoController {
     VideojuegoService videojuegoService;
 
     @GetMapping("/videojuego/buscar")
-    public String listaVideojuegos(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, Model model) {
+    public String listaVideojuegos(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size, Model model) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<VideojuegoData> paginaVideojuegos = videojuegoService.obtenerVideojuegosPaginados(pageable);
+        Page<VideojuegoData> paginaVideojuegos = videojuegoService.obtenerVideojuegosPaginados(page, size);
 
         model.addAttribute("paginaVideojuegos", paginaVideojuegos);
         model.addAttribute("paginaActual", page);
