@@ -21,7 +21,7 @@ public class InitDbService {
     @Autowired
     private RawgService rawgService;
 
-    //@PostConstruct
+    @PostConstruct
     public void initDatabase() {
         System.out.println("Cargando datos desde la API RAWG...");
         rawgService.cargarJuegosDesdeRAWG();
