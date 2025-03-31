@@ -119,7 +119,7 @@ public class RawgService {
 
     public void cargarJuegosDesdeRAWG() {
         String url = "/games?key=" + API_KEY; //+ "&page_size=40";
-        int maxPaginas = 3; // Limite de páginas para evitar demasiadas peticiones
+        int maxPaginas = 1; // Limite de páginas para evitar demasiadas peticiones
         int paginaActual = 1;
 
         while (url != null && paginaActual <= maxPaginas) {
@@ -143,7 +143,7 @@ public class RawgService {
 
                         Videojuego videojuego = new Videojuego(
                                 game.getName(),
-                                quitarEtiquetas(gameDetails.getDescription()),
+                                gameDetails.getDescription_raw(),
                                 game.getBackground_image(),
                                 game.getReleased()
 

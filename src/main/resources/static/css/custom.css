@@ -79,6 +79,10 @@
     border-bottom-right-radius: 20px;
 }
 
+.text-justify {
+    text-align: justify;
+}
+
 .btn-outline-success {
     border-color: var(--main-color-1) !important;  /* Nuevo color del borde */
     background-color: var(--main-color-1) !important;  /*Color diferente */
@@ -122,6 +126,14 @@
 
 .bg-black{
     background-color: var(--bg-color) !important; /* Color diferente */
+}
+
+.bg-main-color-1{
+    background-color: var(--main-color-1) !important; /* Color diferente */
+}
+
+.bg-main-color-2{
+    background-color: var(--main-color-2) !important; /* Color diferente */
 }
 
 .bg-input{

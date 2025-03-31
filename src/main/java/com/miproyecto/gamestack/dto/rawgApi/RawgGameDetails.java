@@ -5,7 +5,7 @@ import java.util.List;
 
 @Data
 public class RawgGameDetails {
-    private String description;
+    private String description_raw;
     private List<RawgDeveloper> developers;
     private List<RawgPublisher> publishers;
 }

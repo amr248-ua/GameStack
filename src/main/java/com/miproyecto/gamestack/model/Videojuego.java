@@ -20,7 +20,7 @@ import java.util.Set;
 @Setter
 public class Videojuego implements Serializable {
     private static final long serialVersionUID = 1L;
-    float puntuacionPromedio;
+    float puntuacionPromedio=0.0f;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
