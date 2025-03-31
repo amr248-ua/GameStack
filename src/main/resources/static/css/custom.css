@@ -128,6 +128,14 @@
     background-color: var(--bg-color) !important; /* Color diferente */
 }
 
+.bg-main-color-1{
+    background-color: var(--main-color-1) !important; /* Color diferente */
+}
+
+.bg-main-color-2{
+    background-color: var(--main-color-2) !important; /* Color diferente */
+}
+
 .bg-input{
     background-color: var(--main-color-2) !important;
     color: white !important; /* Color del texto */
