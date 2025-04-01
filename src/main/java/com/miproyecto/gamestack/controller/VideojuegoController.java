@@ -12,10 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -70,6 +67,17 @@ public class VideojuegoController {
         model.addAttribute("ordenarPor", ordenarPor);
 
         return "listaVideojuegos";
+    }
+
+    @GetMapping("/videojuego/{id}")
+    public String verVideojuego(@PathVariable Long id, Model model) {
+        VideojuegoData videojuego = videojuegoService.obtenerVideojuegoPorId(id);
+        if (videojuego != null) {
+            model.addAttribute("videojuego", videojuego);
+            return "detalleVideojuego";
+        } else {
+            return "redirect:/videojuego/buscar"; // Redirigir si no se encuentra el videojuego
+        }
     }
 
 }
