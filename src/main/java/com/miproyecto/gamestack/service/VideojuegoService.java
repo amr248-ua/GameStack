@@ -20,6 +20,13 @@ public class VideojuegoService {
     private ModelMapper modelMapper;
 
     @Transactional
+    public VideojuegoData obtenerVideojuegoPorId(Long id) {
+        return videojuegoRepository.findVideojuegoById(id)
+            .map(videojuego -> modelMapper.map(videojuego, VideojuegoData.class))
+            .orElse(null);
+    }
+
+    @Transactional
     public Page<VideojuegoData> obtenerVideojuegosPaginados(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         return videojuegoRepository.findAll(pageable)
