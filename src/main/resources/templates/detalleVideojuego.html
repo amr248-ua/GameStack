@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: head (titulo=${videojuego.titulo})}"></head>
+<body class="d-flex flex-column min-vh-100 bg-black">
+<div th:replace="~{layout/header :: navbar}"></div>
+
+<div class="flex-grow-1 mt-5">
+    <div class="container mt-5">
+        <div class="row align-items-center g-3">
+            <div class="col-12 col-md-4 col-lg-3 text-center">
+                <img th:src="${videojuego.imagen}" class="img-fluid rounded"
+                     style="max-width: 100%; height: auto; object-fit: cover;"
+                     alt="Imagen del videojuego">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered custom-table">
+                        <tbody>
+                        <tr>
+                            <th class="bg-dark text-white">Fecha de Lanzamiento</th>
+                            <td th:text="${videojuego.fechaLanzamiento}"></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Puntuación Promedio</th>
+                            <td th:text="${videojuego.puntuacionPromedio}"></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Plataformas</th>
+                            <td>
+                                <span th:each="plataforma : ${videojuego.plataformas}"
+                                      class="badge bg-primary me-1"
+                                      th:text="${plataforma.plataforma}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Géneros</th>
+                            <td>
+                                <span th:each="genero : ${videojuego.generos}"
+                                      class="badge bg-success me-1"
+                                      th:text="${genero.genero}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Tags</th>
+                            <td>
+                                <span th:each="tag : ${videojuego.tags}"
+                                      class="badge bg-secondary me-1"
+                                      th:text="${tag.tag}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Publicadores</th>
+                            <td>
+                                <span th:each="publisher : ${videojuego.publishers}"
+                                      class="badge bg-warning text-dark me-1"
+                                      th:text="${publisher}"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Desarrolladores</th>
+                            <td>
+                                <span th:each="developer : ${videojuego.developers}"
+                                      class="badge bg-danger me-1"
+                                      th:text="${developer}"></span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 col-lg-9 align-self-start">
+                <div class="d-flex justify-content-center">
+                    <h2 class="text-md-start game-stack-text" th:text="${videojuego.titulo}"></h2>
+                </div>
+                <div class="d-flex justify-content-center input-group">
+                    <a class="btn btn-success">Ranking:</a>
+                    <button class="btn btn-success">Añadir a mi lista</button>
+                    <button class="btn btn-success">Foro</button>
+                </div>
+                <div>
+                    <h3 class="text-md-start game-stack-text">Descripcion</h3>
+                    <p class="text-justify text-white" th:text="${videojuego.sinopsis}"></p>
+                </div>
+                <div>
+                    <h3 class="text-md-start game-stack-text">Reseñas</h3>
+                    <label for="textarea" class="form-label text-white">Escribe tu reseña:</label>
+                    <textarea class="form-control bg-input" id="textarea"></textarea>
+                </div>
+                <div class="custom-comentarios mt-4">
+                    <p class="text-white mx-2">Comentario de prueba</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>
