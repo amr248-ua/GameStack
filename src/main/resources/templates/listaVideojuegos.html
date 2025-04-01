@@ -48,7 +48,10 @@
                     <div class="card mb-3" style="max-width: 740px;">
                         <div class="row g-0">
 
-                            <img th:src="${videojuego.imagen}" class="card-img-top img-fluid rounded-start"  style="width: auto; height: 230px; object-fit: cover;" alt="...">
+                            <a th:href="@{/videojuego/{id}(id=${videojuego.id})}">
+                                <img th:src="${videojuego.imagen}" class="card-img-top img-fluid rounded-start"
+                                     style="width: auto; height: 230px; object-fit: cover;" alt="Imagen del videojuego">
+                            </a>
                             <div class="card-body overflow-auto bg-main-color-1" id="scrollspyCard"
                                  data-bs-spy="scroll" data-bs-target="#scrollspyNav"
                                  style="height: 200px;">

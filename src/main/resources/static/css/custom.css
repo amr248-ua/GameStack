@@ -79,6 +79,11 @@
     border-bottom-right-radius: 20px;
 }
 
+.card-img-top:hover{
+    transform: scale(1.05); /* Aumenta el tamaño de la imagen al pasar el mouse */
+    transition: transform 0.3s ease; /* Suaviza la transformación */
+}
+
 .text-justify {
     text-align: justify;
 }
@@ -113,6 +118,12 @@
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
 }
 
+.custom-comentarios{
+    background-color: var(--main-color-1); /* Color diferente */
+    border-radius: 20px; /* Bordes redondeados */
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3); /* Sombra suave */
+}
+
 .custom-form{
     background-color: var(--bg-color); /* Color diferente */
     width: 50%; /* No ocupa toda la pantalla */
@@ -141,4 +152,31 @@
     color: white !important; /* Color del texto */
     border: var(--main-color-1) !important; /* Sin borde */
 
+}
+
+.custom-table {
+    background-color: var(--bg-color); /* Color de fondo de la tabla */
+    color: white; /* Texto en blanco */
+    border-color: var(--main-color-2); /* Bordes con main-color-2 */
+}
+
+.custom-table th {
+    background-color: var(--main-color-1); /* Fondo para los encabezados */
+    color: white;
+    border-color: var(--main-color-2); /* Bordes de encabezados */
+}
+
+.custom-table td {
+    background-color: var(--main-color-3); /* Fondo para las celdas */
+    color: white;
+    border-color: var(--main-color-2); /* Bordes de celdas */
+}
+
+/* Estilos para las filas alternas (table-striped) */
+.custom-table tbody tr:nth-child(odd) {
+    background-color: var(--main-color-3); /* Alternancia de filas */
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: var(--bg-color); /* Alternancia de filas */
 }
