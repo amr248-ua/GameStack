@@ -57,4 +57,17 @@ public class ReseñaService {
             reseñaRepository.save(reseña);
         }
     }
+
+    public int porcentajeReseñasPositivas(Page<ReseñaData> reseñas) {
+        int totalReseñas = reseñas.getNumberOfElements();
+        int reseñasPositivas = 0;
+
+        for (ReseñaData reseña : reseñas) {
+            if (reseña.getRecomienda()) {
+                reseñasPositivas++;
+            }
+        }
+
+        return (int) ((double) reseñasPositivas / totalReseñas * 100);
+    }
 }
