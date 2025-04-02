@@ -81,7 +81,18 @@
                     <p class="text-justify text-white" th:text="${videojuego.sinopsis}"></p>
                 </div>
                 <div>
-                    <h3 class="text-md-start game-stack-text">Reseñas</h3>
+
+                    <div class="d-flex align-items-center">
+                        <h3 class="text-md-start game-stack-text me-3">Reseñas</h3>
+                        <div class="progress flex-grow-1">
+                            <div class="progress-bar bg-morado"
+                                 role="progressbar"
+                                 th:style="'width:' + ${porcentajeReseñasPositivas} + '%'"
+                                 th:text="${porcentajeReseñasPositivas} + '% Recomienda'">
+                            </div>
+                        </div>
+                    </div>
+
 
                     <form class="mb-3" th:action="@{/videojuego/{id}/reseña(id=${videojuego.id})}" th:object="${reseña}" method="post">
                         <div class="d-flex justify-content-between">
