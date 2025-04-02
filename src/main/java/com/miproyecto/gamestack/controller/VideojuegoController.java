@@ -2,17 +2,24 @@ package com.miproyecto.gamestack.controller;
 
 import com.miproyecto.gamestack.dto.GeneroData;
 import com.miproyecto.gamestack.dto.PlataformaData;
+import com.miproyecto.gamestack.dto.ReseñaData;
 import com.miproyecto.gamestack.dto.VideojuegoData;
 import com.miproyecto.gamestack.service.GeneroService;
 import com.miproyecto.gamestack.service.PlataformaService;
+import com.miproyecto.gamestack.service.ReseñaService;
 import com.miproyecto.gamestack.service.VideojuegoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -24,6 +31,8 @@ public class VideojuegoController {
     GeneroService generoService;
     @Autowired
     PlataformaService plataformaService;
+    @Autowired
+    ReseñaService reseñaService;
 
     @ModelAttribute("listaGeneros")//Añade el model atribute a todas las vistas
     public List<GeneroData> listaGeneros() {
@@ -40,7 +49,6 @@ public class VideojuegoController {
                                     @RequestParam(required = false) String plataforma, @RequestParam(required = false) String ordenarPor,
                                     @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "8") int size, Model model) {
 
-        Pageable pageable = PageRequest.of(page, size);
         Page<VideojuegoData> paginaVideojuegos;
 
         // Determinar qué filtro aplicar
@@ -57,7 +65,6 @@ public class VideojuegoController {
             paginaVideojuegos = videojuegoService.obtenerVideojuegosPaginados(page, size);
         }
 
-        // Pasar atributos al modelo
         model.addAttribute("paginaVideojuegos", paginaVideojuegos);
         model.addAttribute("paginaActual", page);
         model.addAttribute("totalPaginas", paginaVideojuegos.getTotalPages());
@@ -70,13 +77,47 @@ public class VideojuegoController {
     }
 
     @GetMapping("/videojuego/{id}")
-    public String verVideojuego(@PathVariable Long id, Model model) {
+    public String verVideojuego(@PathVariable Long id, Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@ModelAttribute("error") String error) {
         VideojuegoData videojuego = videojuegoService.obtenerVideojuegoPorId(id);
+        Page<ReseñaData> reseñas = reseñaService.obtenerReseñasPorVideojuegoId(id, page, size);
+
+        //Para contener la reseña que se va a crear
+        ReseñaData reseña = new ReseñaData();
         if (videojuego != null) {
             model.addAttribute("videojuego", videojuego);
+            model.addAttribute("paginaActual", page);
+            model.addAttribute("reseñas", reseñas);
+            model.addAttribute("totalPaginas", reseñas.getTotalPages());
+            model.addAttribute("reseña", reseña);
+            model.addAttribute("error", error);
             return "detalleVideojuego";
         } else {
-            return "redirect:/videojuego/buscar"; // Redirigir si no se encuentra el videojuego
+            return "redirect:/videojuego/buscar";
+        }
+    }
+
+    @PostMapping("/videojuego/{id}/reseña")
+    public String crearReseña(@PathVariable Long id, @Valid ReseñaData reseñaData, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            redirectAttributes.addFlashAttribute("error", result.getAllErrors().getFirst().getDefaultMessage());
+            redirectAttributes.addFlashAttribute("reseñaData", reseñaData);
+            return "redirect:/videojuego/" + id;
+        }
+        // Asignar el videojuego a la reseña y al usuario logueado
+        VideojuegoData videojuegoData = videojuegoService.obtenerVideojuegoPorId(id);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (videojuegoData != null && auth != null && auth.isAuthenticated()) {
+            String username = auth.getName();
+            try{
+                reseñaService.crearReseña(reseñaData, String.valueOf(videojuegoData.getId()), username);
+            }catch (Exception e){
+                redirectAttributes.addFlashAttribute("error", e.getMessage());
+                return "redirect:/videojuego/" + id;
+            }
+            return "redirect:/videojuego/" + id;
+        } else {
+            return "redirect:/videojuego/buscar";
         }
     }
 
