@@ -80,6 +80,8 @@ public class VideojuegoController {
     public String verVideojuego(@PathVariable Long id, Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@ModelAttribute("error") String error) {
         VideojuegoData videojuego = videojuegoService.obtenerVideojuegoPorId(id);
         Page<ReseñaData> reseñas = reseñaService.obtenerReseñasPorVideojuegoId(id, page, size);
+        // Calcular el porcentaje de reseñas positivas
+        int porcentajeReseñasPositivas = reseñaService.porcentajeReseñasPositivas(reseñas);
 
         //Para contener la reseña que se va a crear
         ReseñaData reseña = new ReseñaData();
@@ -90,6 +92,7 @@ public class VideojuegoController {
             model.addAttribute("totalPaginas", reseñas.getTotalPages());
             model.addAttribute("reseña", reseña);
             model.addAttribute("error", error);
+            model.addAttribute("porcentajeReseñasPositivas", porcentajeReseñasPositivas);
             return "detalleVideojuego";
         } else {
             return "redirect:/videojuego/buscar";
