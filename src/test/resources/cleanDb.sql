@@ -1,3 +1,1 @@
-DELETE FROM usuarios;
-DELETE FROM videojuegos;
-DELETE FROM reseñas;
+delete from usuarios;
