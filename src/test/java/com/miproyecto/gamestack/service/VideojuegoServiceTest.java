@@ -1,23 +1,11 @@
 package com.miproyecto.gamestack.service;
 
 import com.miproyecto.gamestack.dto.VideojuegoData;
-import com.miproyecto.gamestack.model.Genero;
-import com.miproyecto.gamestack.model.Plataforma;
-import com.miproyecto.gamestack.model.Tag;
-import com.miproyecto.gamestack.model.Videojuego;
-import com.miproyecto.gamestack.repository.GeneroRepository;
-import com.miproyecto.gamestack.repository.PlataformaRepository;
-import com.miproyecto.gamestack.repository.TagRepository;
-import com.miproyecto.gamestack.repository.VideojuegoRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.test.context.jdbc.Sql;
-
-import java.time.LocalDate;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 

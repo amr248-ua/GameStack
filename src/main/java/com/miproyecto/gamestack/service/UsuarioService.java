@@ -36,11 +36,8 @@ public class UsuarioService {
         else if (usuarioBD2.isPresent())
             throw new UsuarioServiceException("El usuario con nombre de usuario " + registroData.getUsername() + " ya está registrado");
         else {
-            Usuario usuario = new Usuario();
-            usuario.setEmail(registroData.getEmail());
+            Usuario usuario=modelMapper.map(registroData, Usuario.class);
             usuario.setPassword(passwordEncoder.encode(registroData.getPassword()));
-            usuario.setFechaNacimiento(registroData.getFechaNacimiento());
-            usuario.setUsername(registroData.getUsername());
 
             String codigoActivacion = emailService.generarCodigo(8);
             usuario.setCodigoActivacion(codigoActivacion);

@@ -16,6 +16,7 @@ import java.util.Set;
 public interface VideojuegoRepository extends CrudRepository<Videojuego, Long> {
     // Aquí se pueden agregar métodos personalizados
     Optional<Videojuego> findVideojuegoById(Long id);
+    Optional<Videojuego> findByTitulo(String titulo);
     Page<Videojuego> findAll(Pageable pageable);
     Page<Videojuego> findByTituloContainingIgnoreCase(String nombre, Pageable pageable);
     @Query("SELECT v FROM Videojuego v JOIN v.generos g WHERE g.genero = :nombreGenero")
@@ -26,4 +27,5 @@ public interface VideojuegoRepository extends CrudRepository<Videojuego, Long> {
     Page<Videojuego> findAllByFechaLanzamientoOrderByFechaLanzamientoAsc(Pageable pageable);
     @Query("SELECT v FROM Videojuego v order by v.fechaLanzamiento desc")
     Page<Videojuego> findAllByFechaLanzamientoOrderByFechaLanzamientoDesc(Pageable pageable);
+
 }
