@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class ReseñaData {
+    private Long id;
     @Size(max = 2000, message = "Máximo 2000 carácteres")
     private String contenido;
     @NotNull(message = "Debes indicar si recomiendas o no el videojuego")
