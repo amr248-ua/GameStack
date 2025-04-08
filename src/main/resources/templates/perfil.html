@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{home :: head (titulo='Perfil de '+${usuario.username})}"></head>
+<body class="d-flex flex-column min-vh-100 bg-black">
+<div th:replace="~{layout/header :: navbar}"></div>
+
+<div class="flex-grow-1 mt-5">
+    <div class="container mt-5">
+        <div class="row align-items-center g-3">
+            <div class="col-12 col-md-4 col-lg-3 text-center">
+                <img id="foto-perfil" th:src="@{/perfil/foto/{username}(username=${usuario.username})}"
+                     class="img-fluid rounded foto-perfil text-white"
+                     alt="Foto de perfil" onerror="this.onerror=null; this.src='/img/default-profile.png';">
+
+                <div class="mt-2 mb-2" th:if="${editandoMiPerfil}">
+                    <button class="btn btn-outline-success" id="editar-foto-btn">
+                        <i class="bi bi-pencil-square"></i> Cambiar Foto
+                    </button>
+                </div>
+
+                <form id="foto-form" th:action="@{/mi-perfil/actualizar-foto}" method="post" enctype="multipart/form-data" style="display: none;">
+                    <input type="file" class="form-control mt-2" id="foto-input" name="fotoPerfil" accept="image/*">
+                    <div th:if="${error != null}">
+                        <p class="text-danger" th:text="${error}" th:if="${error}"></p>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2 mb-2">Guardar</button>
+                    <button type="button" class="btn btn-danger mt-2 mb-2" id="cancelar-foto-btn">Cancelar</button>
+                </form>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered custom-table">
+                        <tbody>
+                        <tr>
+                            <th class="bg-dark text-white">Nombre de Usuario</th>
+                            <td th:text="${usuario.username}"></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Email</th>
+                            <td th:text="${usuario.email}"></td>
+                        </tr>
+                        <tr>
+                            <th class="bg-dark text-white">Fecha de Nacimiento</th>
+                            <td th:text="${usuario.fechaNacimiento}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 col-lg-9 align-self-start">
+                <div class="d-flex justify-content-center">
+                    <h2 class="text-md-start game-stack-text" th:text="'Perfil de ' + ${usuario.username}"></h2>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h3 class="text-md-start game-stack-text">Biografía</h3>
+                    <button class="btn btn-outline-success" th:if="${editandoMiPerfil}" id="editar-bio-btn">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </div>
+
+                <p id="bio-text" class="text-justify text-white" th:text="${usuario.biografia}"></p>
+
+                <hr style="border: none; height: 2px; background-color: WHITE;">
+
+                <form id="bio-form" th:action="@{/mi-perfil/actualizar-biografia}" method="post" th:object="${usuario}" style="display: none;">
+                    <textarea class="form-control" id="bio-input" name="biografia" rows="3" th:field="${usuario.biografia}" th:text="${usuario.biografia}"></textarea>
+                    <div th:if="${error != null}">
+                        <p class="text-danger" th:text="${error}" th:if="${error}"></p>
+                    </div>
+                    <button type="submit" class="btn btn-success mt-2">Guardar</button>
+                    <button type="button" class="btn btn-danger mt-2" id="cancelar-bio-btn">Cancelar</button>
+                </form>
+
+                <div class="d-flex justify-content-between align-items-center2 mt-2 mb-2">
+                    <h3 class="text-md-start game-stack-text">Juegos recomendados</h3>
+                </div>
+
+                <div class="container mt-2 mb-2" th:if="${juegosRecomendados != null and not juegosRecomendados.isEmpty()}">
+                    <div id="juegosCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <!-- Agrupar juegos en filas de 5 -->
+                            <th:block th:each="chunk, iterStat : ${#numbers.sequence(0, juegosRecomendados.size() - 1, 5)}">
+                                <div class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+                                    <div class="d-flex justify-content-center">
+                                        <th:block th:each="i : ${#numbers.sequence(chunk, chunk + 4)}">
+                                            <div th:if="${i < juegosRecomendados.size()}" class="card m-2 bg-dark text-white" style="width: 12rem;">
+
+                                                <a th:href="@{/videojuego/{id}(id=${juegosRecomendados[i].id})}">
+                                                    <img th:src="${juegosRecomendados[i].imagen}" class="card-img-top" alt="Imagen del juego">
+                                                </a>
+                                                <div class="card-body bg-black text-center">
+                                                    <button class="btn btn-outline-success" type="submit">Añadir a la lista</button>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+
+                        <button class="carousel-control-prev" type="button" data-bs-target="#juegosCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Anterior</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#juegosCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Siguiente</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="~{layout/footer :: footer}"></div>
+</body>
+</html>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const editarBtn = document.getElementById("editar-bio-btn");
+        const cancelarBtn = document.getElementById("cancelar-bio-btn");
+        const bioText = document.getElementById("bio-text");
+        const bioForm = document.getElementById("bio-form");
+
+        editarBtn.addEventListener("click", function() {
+            bioText.style.display = "none"; // Ocultar el texto
+            bioForm.style.display = "block"; // Mostrar el formulario
+        });
+
+        cancelarBtn.addEventListener("click", function() {
+            bioForm.style.display = "none"; // Ocultar el formulario
+            bioText.style.display = "block"; // Mostrar el texto original
+        });
+
+        const editarFotoBtn = document.getElementById("editar-foto-btn");
+        const cancelarFotoBtn = document.getElementById("cancelar-foto-btn");
+        const fotoPerfil = document.getElementById("foto-perfil");
+        const fotoForm = document.getElementById("foto-form");
+
+        editarFotoBtn.addEventListener("click", function() {
+            fotoPerfil.style.display = "none";
+            fotoForm.style.display = "block";
+        });
+
+        cancelarFotoBtn.addEventListener("click", function() {
+            fotoForm.style.display = "none";
+            fotoPerfil.style.display = "block";
+        });
+    });
+</script>
