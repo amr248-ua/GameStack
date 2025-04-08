@@ -38,6 +38,7 @@ public class UsuarioServiceTest {
         usuario.setEmail("miproyecto@gmail.com");
         usuario.setUsername("miproyecto");
         usuario.setPassword("miproyecto");
+        usuario.setBiografia("miproyecto");
         LocalDate fecha = LocalDate.of(2002,7,19);
         usuario.setFechaNacimiento(fecha);
 
@@ -132,16 +133,14 @@ public class UsuarioServiceTest {
         //GIVEN
         String email = addUsuarioBD();
         UsuarioData usuario = usuarioService.findByEmail(email);
-        usuario.setUsername("miproyecto2");
-        usuario.setPassword("miproyecto2");
+        usuario.setBiografia("miproyecto2");
 
         //WHEN
         usuarioService.actualizar(usuario);
 
         //THEN
         UsuarioData usuarioActualizado = usuarioService.findByEmail(email);
-        assertThat(usuarioActualizado.getUsername()).isEqualTo("miproyecto2");
-        assertThat(usuarioActualizado.getPassword()).isEqualTo("miproyecto2");
+        assertThat(usuarioActualizado.getBiografia()).isEqualTo("miproyecto2");
     }
 
     @Test
