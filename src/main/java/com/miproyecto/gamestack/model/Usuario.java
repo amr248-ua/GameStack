@@ -22,7 +22,9 @@ public class Usuario implements Serializable {
 
     private String steamId;
     private String codigoActivacion;
-    private String fotoPerfil;
+    @Lob
+    private byte[] fotoPerfil;
+    @Column(length = 1000)
     private String biografia;
     private String privacidadLista;
 
