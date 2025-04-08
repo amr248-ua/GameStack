@@ -20,5 +20,6 @@ public class RegistroData {
     @Past(message = "La fecha de nacimiento debe ser en el pasado")
     private LocalDate fechaNacimiento;
     boolean activo;
+    private String biografia;
 
 }
