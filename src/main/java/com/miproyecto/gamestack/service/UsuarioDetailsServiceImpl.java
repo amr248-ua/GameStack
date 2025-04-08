@@ -26,10 +26,10 @@ public class UsuarioDetailsServiceImpl implements UserDetailsService {
 
         Set<GrantedAuthority> authorities = new HashSet<>();
 
-        if (usuario.isAdmin()) {
+        if (usuario.isAdmin() && usuario.isActivo()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
-        if (usuario.isModerador()) {
+        if (usuario.isModerador() && usuario.isActivo()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_MODERATOR"));
         }
         if (usuario.isActivo()) {
