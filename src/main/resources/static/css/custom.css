@@ -208,3 +208,17 @@
 .bg-morado {
     background-color: #957AA6 !important;
 }
+
+.foto-perfil {
+    width: 300px; /* Ancho fijo */
+    height: 300px; /* Alto fijo */
+    object-fit: cover; /* Recorta la imagen manteniendo la relación de aspecto */
+    border-radius: 50%; /* Opcional: hace la imagen redonda */
+}
+
+.foto-perfil-mini {
+    width: 50px; /* Ancho fijo */
+    height: 50px; /* Alto fijo */
+    object-fit: cover; /* Recorta la imagen manteniendo la relación de aspecto */
+    border-radius: 50%; /* Opcional: hace la imagen redonda */
+}
