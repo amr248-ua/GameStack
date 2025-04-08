@@ -32,6 +32,7 @@ public class InitDbService {
         registroData.setPassword("admin");
         registroData.setEmail("admin@admin.com");
         registroData.setActivo(true);
+        registroData.setBiografia("Soy un admin de prueba");
         registroData.setFechaNacimiento(LocalDate.of(2000, 1, 1));
 
         usuarioService.registrar(registroData);
