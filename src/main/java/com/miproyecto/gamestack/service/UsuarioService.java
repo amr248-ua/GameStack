@@ -8,6 +8,8 @@ import com.miproyecto.gamestack.repository.UsuarioRepository;
 import jakarta.mail.MessagingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,15 +102,36 @@ public class UsuarioService {
 
     @Transactional
     public UsuarioData actualizar(UsuarioData usuario) {
-        if (usuario.getEmail() == null)
-            throw new UsuarioServiceException("El usuario no tiene email");
-        else if (usuario.getPassword() == null)
-            throw new UsuarioServiceException("El usuario no tiene password");
+        Usuario usuarioBD = usuarioRepository.findByUsername(usuario.getUsername()).orElse(null);
+
+        if (usuarioBD == null)
+            throw new UsuarioServiceException("Usuario no encontrado");
+
         else {
-            Usuario usuarioNuevo = modelMapper.map(usuario, Usuario.class);
-            usuarioNuevo = usuarioRepository.save(usuarioNuevo);
-            return modelMapper.map(usuarioNuevo, UsuarioData.class);
+            if (usuario.getBiografia() != null) {
+                usuarioBD.setBiografia(usuario.getBiografia());
+            }
+            if (usuario.getFotoPerfil() != null) {
+                usuarioBD.setFotoPerfil(usuario.getFotoPerfil());
+            }
+            if (usuario.getActivo() != null) {
+                usuarioBD.setActivo(usuario.getActivo());
+            }
+            if (usuario.getFechaNacimiento() != null) {
+                usuarioBD.setFechaNacimiento(usuario.getFechaNacimiento());
+            }
+            if (usuario.getPassword() != null) {
+                usuarioBD.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            }
+            if (usuario.getCodigoActivacion() != null) {
+                usuarioBD.setCodigoActivacion(usuario.getCodigoActivacion());
+            }
+
+            usuarioRepository.save(usuarioBD);
         }
+
+        return modelMapper.map(usuarioBD, UsuarioData.class);
+
     }
 
     @Transactional(readOnly = true)
@@ -127,5 +150,17 @@ public class UsuarioService {
         else {
             return modelMapper.map(usuario, UsuarioData.class);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public UsuarioData obtenerUsuarioLogueado() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        if (auth != null && auth.isAuthenticated()) {
+            String username = auth.getName();
+
+            return findByUsername(username);
+        }
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package com.miproyecto.gamestack.service;
 import com.miproyecto.gamestack.dto.ReseñaData;
 import com.miproyecto.gamestack.model.Reseña;
 import com.miproyecto.gamestack.model.Usuario;
+import com.miproyecto.gamestack.model.Videojuego;
 import com.miproyecto.gamestack.repository.ReseñaRepository;
 import com.miproyecto.gamestack.repository.UsuarioRepository;
 import com.miproyecto.gamestack.repository.VideojuegoRepository;
@@ -56,6 +57,11 @@ public class ReseñaService {
             reseña.setUsuario(usuario);
             reseñaRepository.save(reseña);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<Videojuego> obtenerJuegosRecomendados(Long usuarioId) {
+        return reseñaRepository.findVideojuegosRecomendadosPorUsuario(usuarioId);
     }
 
     public int porcentajeReseñasPositivas(Page<ReseñaData> reseñas) {

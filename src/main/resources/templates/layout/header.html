@@ -18,7 +18,7 @@
                     <li class="nav-item mx-1"><a class="btn btn-outline-success" th:href="@{/foros}">Foros</a></li>
                     <li class="nav-item mx-1"><a class="btn btn-outline-success" th:href="@{/chatbot}">Chatbot</a></li>
                     <li class="nav-item mx-2">
-                        <form class="d-flex me-5" role="search" th:action="@{/videojuego/buscarTitulo}" method="get">
+                        <form class="d-flex me-5" role="search" th:action="@{/videojuego/buscar}" method="get">
                             <div class="input-group">
                                 <input class="form-control" type="search" name="titulo" placeholder="Buscar" aria-label="Search">
                                 <button class="btn btn-success" type="submit"><i class="bi-search"></i></button>
@@ -39,7 +39,7 @@
                         <span th:text="${#authentication.name}">Usuario</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#">Perfil</a></li>
+                        <li><a class="dropdown-item" th:href="@{/usuario/{username}(username=${#authentication.name})}">Perfil</a></li>
                         <li><a class="dropdown-item" href="#">Configuración</a></li>
                         <li>
                             <form th:action="@{/logout}" method="post">
