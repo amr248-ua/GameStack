@@ -1,9 +1,6 @@
 package com.miproyecto.gamestack.controller;
 
-import com.miproyecto.gamestack.dto.GeneroData;
-import com.miproyecto.gamestack.dto.PlataformaData;
-import com.miproyecto.gamestack.dto.ReseñaData;
-import com.miproyecto.gamestack.dto.VideojuegoData;
+import com.miproyecto.gamestack.dto.*;
 import com.miproyecto.gamestack.service.GeneroService;
 import com.miproyecto.gamestack.service.PlataformaService;
 import com.miproyecto.gamestack.service.ReseñaService;
@@ -77,7 +74,7 @@ public class VideojuegoController {
     }
 
     @GetMapping("/videojuego/{id}")
-    public String verVideojuego(@PathVariable Long id, Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@ModelAttribute("error") String error) {
+    public String verVideojuego(@PathVariable Long id, Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,@ModelAttribute("error") String error, @ModelAttribute("mensaje") String mensaje) {
         VideojuegoData videojuego = videojuegoService.obtenerVideojuegoPorId(id);
         Page<ReseñaData> reseñas = reseñaService.obtenerReseñasPorVideojuegoId(id, page, size);
         // Calcular el porcentaje de reseñas positivas
@@ -85,13 +82,16 @@ public class VideojuegoController {
 
         //Para contener la reseña que se va a crear
         ReseñaData reseña = new ReseñaData();
+        RegistroJuegoListaData registroJuegoListaData = new RegistroJuegoListaData();
         if (videojuego != null) {
             model.addAttribute("videojuego", videojuego);
             model.addAttribute("paginaActual", page);
             model.addAttribute("reseñas", reseñas);
+            model.addAttribute("registroJuegoListaData", registroJuegoListaData);
             model.addAttribute("totalPaginas", reseñas.getTotalPages());
             model.addAttribute("reseña", reseña);
             model.addAttribute("error", error);
+            model.addAttribute("mensaje", mensaje);
             model.addAttribute("porcentajeReseñasPositivas", porcentajeReseñasPositivas);
             return "detalleVideojuego";
         } else {

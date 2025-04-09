@@ -87,8 +87,8 @@
                                                 <a th:href="@{/videojuego/{id}(id=${juegosRecomendados[i].id})}">
                                                     <img th:src="${juegosRecomendados[i].imagen}" class="card-img-top" alt="Imagen del juego">
                                                 </a>
-                                                <div class="card-body bg-black text-center">
-                                                    <button class="btn btn-outline-success" type="submit">Añadir a la lista</button>
+                                                <div class="card-body bg-dark text-center text-white">
+                                                    <h5 th:text="${juegosRecomendados[i].titulo}"></h5>
                                                 </div>
                                             </div>
                                         </th:block>

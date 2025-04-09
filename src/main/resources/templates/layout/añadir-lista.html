@@ -1,0 +1,55 @@
+<div th:fragment="modal-lista" class="modal fade" id="añadirListaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-black">
+            <div class="modal-header">
+                <h5 class="modal-title text-white">Añadir a mi lista</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-white">
+                <form method="post" th:action="@{/usuario/{username}/lista/añadir/{videojuegoId}(username=${#authentication.name}, videojuegoId=${videojuego.id})}" th:object="${registroJuegoListaData}">
+                    <div class="mb-3">
+                        <label for="titulo-juego" class="col-form-label">Juego:</label>
+                        <input type="text" class="form-control" id="titulo-juego" th:value="${videojuego.titulo}" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tipo-lista" class="col-form-label">Lista:</label>
+                        <select th:field="*{tipoLista}" class="form-control bg-input" id="tipo-lista">
+                            <option value="COMPLETADO">Juegos completados</option>
+                            <option value="POR_JUGAR">Juegos que quiero jugar</option>
+                            <option value="DEJADO">Juegos que he dejado de jugar</option>
+                            <option value="JUGANDO">Juegos que estoy jugando</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="puntuacion" class="col-form-label">Puntuación:</label>
+                        <select th:field="*{puntuacion}" class="form-control bg-input" id="puntuacion">
+                            <option value="1">1 (No puede ser peor)</option>
+                            <option value="2">2 (Bastante malo)</option>
+                            <option value="3">3 (Muy malo)</option>
+                            <option value="4">4 (Malo)</option>
+                            <option value="5">5 (Suficiente)</option>
+                            <option value="6">6 (Bueno)</option>
+                            <option value="7">7 (Notable)</option>
+                            <option value="8">8 (Notable)</option>
+                            <option value="9">9 (Sobresaliente)</option>
+                            <option value="10">10 (Obra maestra)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaInicio" class="col-form-label">Fecha inicio:</label>
+                        <input th:field="*{fechaInicio}" class="form-control bg-input" type="date" id="fechaInicio">
+                    </div>
+                    <div class="mb-3">
+                        <label for="fechaFin" class="col-form-label">Fecha fin:</label>
+                        <input th:field="*{fechaFin}" class="form-control bg-input" type="date" id="fechaFin">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success ">Añadir</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
