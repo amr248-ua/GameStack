@@ -1,14 +1,12 @@
 package com.miproyecto.gamestack.controller;
 
 import com.miproyecto.gamestack.dto.RegistroData;
+import com.miproyecto.gamestack.dto.RegistroJuegoListaData;
 import com.miproyecto.gamestack.dto.UsuarioData;
 import com.miproyecto.gamestack.dto.VerificarCuentaData;
 import com.miproyecto.gamestack.model.Videojuego;
-import com.miproyecto.gamestack.service.EmailService;
-import com.miproyecto.gamestack.service.ReseñaService;
-import com.miproyecto.gamestack.service.UsuarioService;
-import com.miproyecto.gamestack.service.UsuarioServiceException;
-import jakarta.mail.MessagingException;
+import com.miproyecto.gamestack.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -21,19 +19,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
-public class LoginController {
+public class UsuarioController {
     @Autowired
     UsuarioService usuarioService;
     @Autowired
     ReseñaService reseñaService;
+    @Autowired
+    RegistroJuegoListaService registroJuegoListaService;
 
     @GetMapping("/login")
     public String mostrarLogin() {
@@ -120,6 +115,20 @@ public class LoginController {
         model.addAttribute("editandoMiPerfil", editandoMiPerfil);
         model.addAttribute("usuario", usuario);
         return "perfil";
+    }
+
+    @PostMapping("/usuario/{username}/lista/añadir/{videojuegoId}")
+    public String añadirAMiLista(@PathVariable String username,@PathVariable String videojuegoId , @Valid RegistroJuegoListaData registroJuegoListaData, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        try {
+            registroJuegoListaService.crearRegistroJuegoLista(registroJuegoListaData, videojuegoId, username);
+            redirectAttributes.addFlashAttribute("mensaje", "Juego añadido a la lista correctamente.");
+        } catch (RegistroJuegoListaException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            redirectAttributes.addFlashAttribute("registroJuegoListaData", registroJuegoListaData);
+            return "redirect:" + referer;
+        }
+        return "redirect:" + referer;
     }
 
     @PostMapping("/mi-perfil/actualizar-biografia")
